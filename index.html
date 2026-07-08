@@ -13,27 +13,64 @@
     <meta property="og:image" content="https://themonacoflow.com/hero.jpg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
+            --ink: #070f1d;
             --navy: #0a1628;
-            --dark-blue: #111d33;
-            --accent: #c8a44e;
-            --accent-light: #d4b86a;
-            --text: #e8e8e8;
-            --text-muted: #9aa3b0;
+            --navy-2: #10203a;
+            --navy-3: #0c1930;
+            --gold-deep: #8a6a2c;
+            --gold: #c8a44e;
+            --gold-bright: #e8cf8e;
+            --gold-glint: #f6e7bb;
+            --text: #e9ecf2;
+            --text-muted: #97a2b6;
             --white: #ffffff;
-            --border: rgba(200, 164, 78, 0.15);
+            --border: rgba(200, 164, 78, 0.16);
+            --font-display: 'Fraunces', Georgia, serif;
+            --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace;
         }
 
+        html { scroll-behavior: smooth; }
+
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: var(--font-body);
             background: var(--navy);
             color: var(--text);
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
+        }
+
+        /* Film grain — kills the flat digital feel */
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+            opacity: 0.05;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        ::selection { background: rgba(200, 164, 78, 0.35); color: var(--white); }
+
+        /* Gilded text — gold as light, not paint */
+        .gilt {
+            background: linear-gradient(105deg, var(--gold-deep) 0%, var(--gold-bright) 30%, var(--gold) 55%, var(--gold-glint) 80%, var(--gold) 100%);
+            background-size: 220% 100%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: gilt-drift 7s ease-in-out infinite alternate;
+        }
+
+        @keyframes gilt-drift {
+            from { background-position: 0% 50%; }
+            to   { background-position: 100% 50%; }
         }
 
         /* Navigation */
@@ -41,11 +78,19 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(10, 22, 40, 0.95);
+            background: rgba(7, 15, 29, 0.85);
             backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border);
+            -webkit-backdrop-filter: blur(20px);
             z-index: 100;
             padding: 0 2rem;
+        }
+
+        nav::after {
+            content: '';
+            position: absolute;
+            left: 0; right: 0; bottom: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(200,164,78,0.35) 30%, rgba(200,164,78,0.35) 70%, transparent);
         }
 
         .nav-inner {
@@ -58,34 +103,30 @@
         }
 
         .logo {
-            font-size: 1.3rem;
-            font-weight: 700;
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 600;
             color: var(--white);
             text-decoration: none;
-            letter-spacing: 0.5px;
-        }
-
-        .logo span {
-            color: var(--accent);
+            letter-spacing: 0.06em;
         }
 
         .nav-links {
             display: flex;
-            gap: 2rem;
+            gap: 2.2rem;
             list-style: none;
         }
 
         .nav-links a {
             color: var(--text-muted);
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             font-weight: 500;
+            letter-spacing: 0.02em;
             transition: color 0.2s;
         }
 
-        .nav-links a:hover {
-            color: var(--accent);
-        }
+        .nav-links a:hover, .nav-links a:focus-visible { color: var(--gold-bright); }
 
         .nav-toggle {
             display: none;
@@ -101,108 +142,189 @@
             min-height: 100vh;
             display: flex;
             align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 8rem 2rem 4rem;
-            background: linear-gradient(rgba(10, 22, 40, 0.7), rgba(10, 22, 40, 0.85)),
-                        url('hero.jpg') center/cover no-repeat;
+            padding: 8rem 2rem 5rem;
             position: relative;
+            overflow: hidden;
+            isolation: isolate;
         }
 
         .hero::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(ellipse at 50% 30%, rgba(200, 164, 78, 0.08) 0%, transparent 70%);
+            inset: 0;
+            background: url('hero.jpg') center/cover no-repeat;
+            filter: saturate(0.45) contrast(1.05) brightness(0.9);
+            z-index: -2;
         }
 
-        .hero-content {
-            position: relative;
-            max-width: 800px;
+        .hero::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 90% 70% at 20% 40%, rgba(7, 15, 29, 0.55) 0%, rgba(7, 15, 29, 0.92) 75%),
+                linear-gradient(180deg, rgba(7, 15, 29, 0.72) 0%, rgba(10, 22, 40, 0.88) 60%, var(--navy) 100%);
+            z-index: -1;
         }
+
+        .hero-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .hero-content { max-width: 680px; }
 
         .hero-tag {
+            font-family: var(--font-mono);
             display: inline-block;
-            font-size: 0.8rem;
-            font-weight: 600;
-            letter-spacing: 2px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.22em;
             text-transform: uppercase;
-            color: var(--accent);
-            margin-bottom: 1.5rem;
-            border: 1px solid var(--border);
-            padding: 0.5rem 1.2rem;
-            border-radius: 50px;
+            color: var(--gold-bright);
+            margin-bottom: 1.8rem;
+        }
+
+        .hero-tag::before {
+            content: '';
+            display: inline-block;
+            width: 34px;
+            height: 1px;
+            background: linear-gradient(90deg, var(--gold-deep), var(--gold-bright));
+            vertical-align: middle;
+            margin-right: 0.9rem;
         }
 
         .hero h1 {
-            font-size: 3.2rem;
-            font-weight: 700;
-            line-height: 1.15;
-            margin-bottom: 1.5rem;
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 5.4vw, 3.9rem);
+            font-weight: 600;
+            line-height: 1.08;
+            letter-spacing: -0.01em;
+            margin-bottom: 1.6rem;
             color: var(--white);
         }
 
         .hero p {
-            font-size: 1.15rem;
+            font-size: 1.12rem;
             color: var(--text-muted);
-            max-width: 600px;
-            margin: 0 auto 2.5rem;
-            line-height: 1.7;
+            max-width: 560px;
+            margin-bottom: 2.6rem;
+            line-height: 1.75;
         }
 
+        /* Buttons — gold as material */
         .btn {
+            position: relative;
             display: inline-block;
-            padding: 0.9rem 2.2rem;
-            background: var(--accent);
-            color: var(--navy);
+            padding: 0.95rem 2.3rem;
+            background: linear-gradient(180deg, var(--gold-bright) 0%, var(--gold) 48%, #ad8b3c 100%);
+            color: var(--ink);
             text-decoration: none;
             font-weight: 600;
             font-size: 0.95rem;
             border-radius: 6px;
-            transition: all 0.2s;
+            overflow: hidden;
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.45),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.22),
+                0 10px 26px -10px rgba(200, 164, 78, 0.55);
+            transition: transform 0.2s, box-shadow 0.2s;
         }
 
-        .btn:hover {
-            background: var(--accent-light);
-            transform: translateY(-1px);
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 0; bottom: 0;
+            left: -70%;
+            width: 45%;
+            background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+            transform: skewX(-18deg);
+            transition: left 0.55s ease;
         }
+
+        .btn:hover, .btn:focus-visible {
+            transform: translateY(-2px);
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.45),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.22),
+                0 16px 34px -12px rgba(200, 164, 78, 0.7);
+        }
+
+        .btn:hover::after { left: 125%; }
 
         .btn-outline {
             background: transparent;
-            color: var(--accent);
-            border: 1px solid var(--accent);
+            color: var(--gold-bright);
+            border: 1px solid rgba(200, 164, 78, 0.55);
+            box-shadow: none;
             margin-left: 1rem;
         }
 
-        .btn-outline:hover {
-            background: rgba(200, 164, 78, 0.1);
+        .btn-outline::after { display: none; }
+
+        .btn-outline:hover, .btn-outline:focus-visible {
+            background: rgba(200, 164, 78, 0.09);
+            border-color: var(--gold-bright);
+            box-shadow: 0 0 24px -8px rgba(200, 164, 78, 0.45);
+        }
+
+        /* Signature: the route line */
+        .route {
+            margin-top: 4.5rem;
+            max-width: 620px;
+        }
+
+        .route svg { width: 100%; height: auto; display: block; overflow: visible; }
+
+        .route .track { stroke: rgba(200, 164, 78, 0.28); stroke-width: 1; }
+        .route .node { fill: var(--navy); stroke: var(--gold); stroke-width: 1.2; }
+        .route .node-core { fill: var(--gold); }
+
+        .route .pulse {
+            fill: var(--gold-glint);
+            filter: drop-shadow(0 0 6px rgba(246, 231, 187, 0.9));
+        }
+
+        .route text {
+            font-family: var(--font-mono);
+            font-size: 8.5px;
+            letter-spacing: 0.18em;
+            fill: var(--text-muted);
         }
 
         /* Sections */
-        section {
-            padding: 6rem 2rem;
-        }
+        section { padding: 6.5rem 2rem; position: relative; }
 
-        .section-inner {
-            max-width: 1100px;
-            margin: 0 auto;
-        }
+        .section-inner { max-width: 1100px; margin: 0 auto; }
 
         .section-label {
-            font-size: 0.75rem;
-            font-weight: 600;
-            letter-spacing: 2px;
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            font-weight: 500;
+            letter-spacing: 0.24em;
             text-transform: uppercase;
-            color: var(--accent);
-            margin-bottom: 0.75rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .section-label::before {
+            content: '';
+            display: inline-block;
+            width: 26px;
+            height: 1px;
+            background: var(--gold);
+            opacity: 0.6;
+            vertical-align: middle;
+            margin-right: 0.8rem;
         }
 
         .section-title {
-            font-size: 2.2rem;
-            font-weight: 700;
+            font-family: var(--font-display);
+            font-size: clamp(1.8rem, 3.2vw, 2.4rem);
+            font-weight: 600;
+            letter-spacing: -0.005em;
             color: var(--white);
             margin-bottom: 1rem;
         }
@@ -211,17 +333,56 @@
             font-size: 1.05rem;
             color: var(--text-muted);
             max-width: 600px;
-            margin-bottom: 3rem;
+            margin-bottom: 3.2rem;
+        }
+
+        /* Flow divider between sections */
+        .flowline {
+            position: relative;
+            height: 1px;
+            max-width: 1100px;
+            margin: 0 auto;
+            background: linear-gradient(90deg, transparent, rgba(200, 164, 78, 0.3) 25%, rgba(200, 164, 78, 0.3) 75%, transparent);
+            overflow: visible;
+        }
+
+        .flowline::before {
+            content: '';
+            position: absolute;
+            top: -2.5px;
+            left: 50%;
+            width: 6px;
+            height: 6px;
+            transform: translateX(-50%) rotate(45deg);
+            background: var(--gold);
+            box-shadow: 0 0 10px rgba(200, 164, 78, 0.7);
+        }
+
+        .flowline::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 1px;
+            width: 90px;
+            background: linear-gradient(90deg, transparent, var(--gold-glint), transparent);
+            animation: glint-travel 6s linear infinite;
+            opacity: 0.9;
+        }
+
+        @keyframes glint-travel {
+            0%   { left: -10%; opacity: 0; }
+            12%  { opacity: 0.9; }
+            88%  { opacity: 0.9; }
+            100% { left: 100%; opacity: 0; }
         }
 
         /* About */
-        .about {
-            background: var(--dark-blue);
-        }
+        .about { background: linear-gradient(180deg, var(--navy) 0%, var(--navy-3) 100%); }
 
         .about-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1.15fr 0.85fr;
             gap: 4rem;
             align-items: center;
         }
@@ -232,51 +393,101 @@
             line-height: 1.8;
         }
 
-        .stats-row {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            margin-top: 2.5rem;
+        /* Manifest panel */
+        .manifest {
+            background: linear-gradient(180deg, var(--navy-2) 0%, var(--navy-3) 100%);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 2.2rem 2.4rem;
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.05),
+                0 24px 48px -24px rgba(0, 0, 0, 0.65);
         }
 
-        .stat h3 {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--accent);
+        .manifest-title {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            letter-spacing: 0.24em;
+            text-transform: uppercase;
+            color: var(--gold);
+            padding-bottom: 1.1rem;
+            margin-bottom: 0.4rem;
+            border-bottom: 1px solid var(--border);
         }
 
-        .stat p {
-            font-size: 0.85rem;
+        .manifest-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 1.5rem;
+            padding: 0.95rem 0;
+            border-bottom: 1px dashed rgba(200, 164, 78, 0.14);
+        }
+
+        .manifest-row:last-child { border-bottom: none; }
+
+        .manifest-row .k {
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
             color: var(--text-muted);
-            margin-top: 0.25rem;
+            letter-spacing: 0.04em;
+            white-space: nowrap;
         }
 
-        /* Services / What We Do */
+        .manifest-row .v {
+            font-size: 0.92rem;
+            font-weight: 500;
+            color: var(--text);
+            text-align: right;
+        }
+
+        /* Services */
         .services-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
+            gap: 1.8rem;
         }
 
-        .service-card {
-            background: var(--dark-blue);
+        .card {
+            background: linear-gradient(180deg, var(--navy-2) 0%, var(--navy-3) 100%);
             border: 1px solid var(--border);
             border-radius: 10px;
-            padding: 2.5rem 2rem;
-            transition: border-color 0.3s;
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.05),
+                0 20px 40px -26px rgba(0, 0, 0, 0.7);
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .service-card:hover {
-            border-color: var(--accent);
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(200, 164, 78, 0.45);
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.05),
+                0 26px 52px -26px rgba(0, 0, 0, 0.8),
+                0 0 40px -18px rgba(200, 164, 78, 0.4);
         }
+
+        .service-card { padding: 2.5rem 2rem; }
 
         .service-icon {
-            font-size: 2rem;
-            margin-bottom: 1.2rem;
+            width: 46px;
+            height: 46px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 9px;
+            margin-bottom: 1.4rem;
+            color: var(--gold-bright);
+            background: linear-gradient(160deg, rgba(200, 164, 78, 0.16), rgba(200, 164, 78, 0.05));
+            border: 1px solid rgba(200, 164, 78, 0.28);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
         }
 
+        .service-icon svg { width: 24px; height: 24px; }
+
         .service-card h3 {
-            font-size: 1.15rem;
+            font-family: var(--font-display);
+            font-size: 1.2rem;
             font-weight: 600;
             color: var(--white);
             margin-bottom: 0.75rem;
@@ -289,62 +500,59 @@
         }
 
         /* Categories */
-        .categories {
-            background: var(--dark-blue);
-        }
+        .categories { background: linear-gradient(180deg, var(--navy-3) 0%, var(--navy) 100%); }
 
         .cat-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1.5rem;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.4rem;
         }
 
         .cat-item {
-            text-align: center;
-            padding: 2rem 1.5rem;
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            transition: all 0.3s;
-        }
-
-        .cat-item:hover {
-            border-color: var(--accent);
-            background: rgba(200, 164, 78, 0.03);
+            display: flex;
+            align-items: center;
+            gap: 1.1rem;
+            padding: 1.4rem 1.6rem;
         }
 
         .cat-item .icon {
-            font-size: 2rem;
-            margin-bottom: 0.75rem;
+            flex-shrink: 0;
+            color: var(--gold);
+            display: flex;
+            transition: color 0.3s;
         }
+
+        .cat-item .icon svg { width: 26px; height: 26px; }
+
+        .cat-item:hover .icon { color: var(--gold-glint); }
 
         .cat-item h4 {
             font-size: 0.95rem;
-            font-weight: 600;
-            color: var(--white);
+            font-weight: 500;
+            letter-spacing: 0.01em;
+            color: var(--text);
         }
 
         /* Why Us */
         .why-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 2rem;
+            gap: 1.8rem;
         }
 
         .why-item {
             display: flex;
             gap: 1.2rem;
-            padding: 1.5rem;
-            border-radius: 8px;
-            background: var(--dark-blue);
-            border: 1px solid var(--border);
+            padding: 1.7rem 1.8rem;
         }
 
         .why-item .check {
-            color: var(--accent);
-            font-size: 1.3rem;
+            color: var(--gold-bright);
             flex-shrink: 0;
-            margin-top: 2px;
+            margin-top: 3px;
         }
+
+        .why-item .check svg { width: 20px; height: 20px; }
 
         .why-item h4 {
             font-size: 1rem;
@@ -356,13 +564,11 @@
         .why-item p {
             font-size: 0.9rem;
             color: var(--text-muted);
-            line-height: 1.6;
+            line-height: 1.65;
         }
 
         /* Contact */
-        .contact {
-            background: var(--dark-blue);
-        }
+        .contact { background: linear-gradient(180deg, var(--navy) 0%, var(--ink) 100%); }
 
         .contact-grid {
             display: grid;
@@ -371,55 +577,92 @@
         }
 
         .contact-info h3 {
+            font-family: var(--font-display);
             font-size: 1.3rem;
             font-weight: 600;
             color: var(--white);
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.6rem;
         }
 
-        .contact-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
+        .contact-item { margin-bottom: 1.5rem; }
 
         .contact-item .label {
-            font-size: 0.8rem;
-            font-weight: 600;
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            font-weight: 500;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--accent);
-            margin-bottom: 0.25rem;
+            letter-spacing: 0.16em;
+            color: var(--gold);
+            margin-bottom: 0.3rem;
         }
 
-        .contact-item .value {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-        }
+        .contact-item .value { color: var(--text-muted); font-size: 0.95rem; }
 
         .contact-item .value a {
             color: var(--text-muted);
             text-decoration: none;
+            transition: color 0.2s;
         }
 
-        .contact-item .value a:hover {
-            color: var(--accent);
+        .contact-item .value a:hover { color: var(--gold-bright); }
+
+        .contact-panel { padding: 2.5rem; }
+
+        .contact-panel h3 {
+            font-family: var(--font-display);
+            color: var(--white);
+            font-size: 1.15rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-panel p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
         }
 
         /* Footer */
         footer {
-            padding: 2.5rem 2rem;
-            border-top: 1px solid var(--border);
+            padding: 2.8rem 2rem;
             text-align: center;
+            background: var(--ink);
         }
 
-        footer p {
-            font-size: 0.85rem;
-            color: var(--text-muted);
+        footer p { font-size: 0.85rem; color: var(--text-muted); }
+
+        footer a { color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+        footer a:hover { color: var(--gold-bright); }
+
+        /* Scroll reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.7s cubic-bezier(0.2, 0.6, 0.2, 1), transform 0.7s cubic-bezier(0.2, 0.6, 0.2, 1);
+        }
+
+        .reveal.in { opacity: 1; transform: none; }
+
+        .services-grid > .reveal:nth-child(2), .why-grid > .reveal:nth-child(2) { transition-delay: 0.08s; }
+        .services-grid > .reveal:nth-child(3), .why-grid > .reveal:nth-child(3) { transition-delay: 0.16s; }
+        .why-grid > .reveal:nth-child(4) { transition-delay: 0.24s; }
+        .cat-grid > .reveal:nth-child(3n+2) { transition-delay: 0.07s; }
+        .cat-grid > .reveal:nth-child(3n) { transition-delay: 0.14s; }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            .reveal { opacity: 1; transform: none; transition: none; }
+            .gilt { animation: none; }
+            .flowline::after { animation: none; opacity: 0; }
+            .btn::after { display: none; }
+            .route .pulse { display: none; }
         }
 
         /* Responsive */
+        @media (max-width: 900px) {
+            .cat-grid { grid-template-columns: repeat(2, 1fr); }
+            .services-grid { grid-template-columns: 1fr; }
+        }
+
         @media (max-width: 768px) {
             .nav-links { display: none; }
             .nav-toggle { display: block; }
@@ -430,21 +673,20 @@
                 top: 72px;
                 left: 0;
                 right: 0;
-                background: rgba(10, 22, 40, 0.98);
+                background: rgba(7, 15, 29, 0.98);
                 padding: 2rem;
                 gap: 1.2rem;
                 border-bottom: 1px solid var(--border);
             }
-            .hero h1 { font-size: 2.2rem; }
-            .hero { padding: 6rem 1.5rem 3rem; }
-            .about-grid { grid-template-columns: 1fr; gap: 2rem; }
-            .services-grid { grid-template-columns: 1fr; }
-            .cat-grid { grid-template-columns: repeat(2, 1fr); }
+            .hero { padding: 7rem 1.5rem 4rem; }
+            .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+            .cat-grid { grid-template-columns: 1fr; }
             .why-grid { grid-template-columns: 1fr; }
-            .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
-            .stats-row { grid-template-columns: repeat(3, 1fr); gap: 1rem; }
-            .stat h3 { font-size: 1.4rem; }
-            .btn-outline { margin-left: 0; margin-top: 0.75rem; }
+            .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+            .btn-outline { margin-left: 0.6rem; }
+            .manifest { padding: 1.8rem 1.6rem; }
+            .manifest-row { flex-direction: column; gap: 0.15rem; }
+            .manifest-row .v { text-align: left; }
         }
     </style>
 </head>
@@ -453,8 +695,8 @@
     <!-- Navigation -->
     <nav>
         <div class="nav-inner">
-            <a href="#" class="logo">THE MONACO <span>FLOW</span></a>
-            <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('active')">&#9776;</button>
+            <a href="#" class="logo">THE MONACO <span class="gilt">FLOW</span></a>
+            <button class="nav-toggle" aria-label="Toggle navigation" onclick="document.querySelector('.nav-links').classList.toggle('active')">&#9776;</button>
             <ul class="nav-links">
                 <li><a href="#about">About</a></li>
                 <li><a href="#services">Services</a></li>
@@ -467,12 +709,31 @@
 
     <!-- Hero -->
     <section class="hero">
-        <div class="hero-content">
-            <div class="hero-tag">E-Commerce Retail & Distribution</div>
-            <h1>Consumer Goods Distribution for the Modern Market</h1>
-            <p>Monaco Flow LLC is a Florida-based e-commerce retail and distribution company specializing in consumer products across home, lifestyle, and everyday essentials.</p>
-            <a href="#contact" class="btn">Partner With Us</a>
-            <a href="#about" class="btn btn-outline">Learn More</a>
+        <div class="hero-inner">
+            <div class="hero-content">
+                <div class="hero-tag">E-Commerce Retail &amp; Distribution</div>
+                <h1>Consumer Goods Distribution for the <span class="gilt">Modern Market</span></h1>
+                <p>Monaco Flow LLC is a Florida-based e-commerce retail and distribution company specializing in consumer products across home, lifestyle, and everyday essentials.</p>
+                <a href="#contact" class="btn">Partner With Us</a>
+                <a href="#about" class="btn btn-outline">Learn More</a>
+            </div>
+            <div class="route" aria-hidden="true">
+                <svg viewBox="0 0 620 64">
+                    <line class="track" x1="10" y1="24" x2="610" y2="24"/>
+                    <circle class="node" cx="10" cy="24" r="5"/>
+                    <circle class="node-core" cx="10" cy="24" r="1.8"/>
+                    <circle class="node" cx="310" cy="24" r="5"/>
+                    <circle class="node-core" cx="310" cy="24" r="1.8"/>
+                    <circle class="node" cx="610" cy="24" r="5"/>
+                    <circle class="node-core" cx="610" cy="24" r="1.8"/>
+                    <circle class="pulse" r="2.6" cy="24">
+                        <animate attributeName="cx" values="10;310;310;610" keyTimes="0;0.45;0.55;1" dur="7s" repeatCount="indefinite"/>
+                    </circle>
+                    <text x="10" y="52" text-anchor="start">SOURCE</text>
+                    <text x="310" y="52" text-anchor="middle">WAREHOUSE</text>
+                    <text x="610" y="52" text-anchor="end">DOORSTEP</text>
+                </svg>
+            </div>
         </div>
     </section>
 
@@ -480,32 +741,43 @@
     <section class="about" id="about">
         <div class="section-inner">
             <div class="about-grid">
-                <div class="about-text">
+                <div class="about-text reveal">
                     <div class="section-label">About Us</div>
                     <h2 class="section-title">Built for Scale, Driven by Precision</h2>
                     <p>Monaco Flow LLC is a registered e-commerce retail and distribution company operating out of Orlando, Florida. We specialize in sourcing, warehousing, and distributing consumer products through major online retail channels.</p>
                     <p>Our operations are built on efficient logistics, strict MAP compliance, and strong supplier relationships. We work with authorized distributors and wholesale partners to bring quality products to consumers through trusted e-commerce platforms.</p>
                     <p>We maintain dedicated fulfillment infrastructure and inventory management systems designed for high-volume, multi-channel distribution.</p>
                 </div>
-                <div>
-                    <div class="stats-row">
-                        <div class="stat">
-                            <h3>FL</h3>
-                            <p>Based in Florida</p>
+                <div class="reveal">
+                    <div class="manifest">
+                        <div class="manifest-title">At a Glance</div>
+                        <div class="manifest-row">
+                            <span class="k">Base of operations</span>
+                            <span class="v">Orlando, Florida</span>
                         </div>
-                        <div class="stat">
-                            <h3>Multi</h3>
-                            <p>Channel Retail</p>
+                        <div class="manifest-row">
+                            <span class="k">Fulfillment</span>
+                            <span class="v">In-house warehousing</span>
                         </div>
-                        <div class="stat">
-                            <h3>MAP</h3>
-                            <p>Compliant</p>
+                        <div class="manifest-row">
+                            <span class="k">Channels</span>
+                            <span class="v">Major e-commerce platforms</span>
+                        </div>
+                        <div class="manifest-row">
+                            <span class="k">Pricing</span>
+                            <span class="v">MAP compliant</span>
+                        </div>
+                        <div class="manifest-row">
+                            <span class="k">Sourcing</span>
+                            <span class="v">Authorized distributors only</span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
+    <div class="flowline" aria-hidden="true"></div>
 
     <!-- Services -->
     <section id="services">
@@ -514,24 +786,32 @@
             <h2 class="section-title">Full-Service E-Commerce Distribution</h2>
             <p class="section-subtitle">From sourcing to last-mile delivery, we handle the complete product lifecycle.</p>
             <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon">&#9733;</div>
+                <div class="card service-card reveal">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4h8v8H8z"/><path d="M3 12h8v8H3z"/><path d="M13 12h8v8h-8z"/><path d="M12 4v3M7 12v3M17 12v3"/></svg>
+                    </div>
                     <h3>Wholesale Sourcing</h3>
                     <p>We maintain relationships with authorized distributors and wholesale partners across multiple product categories, ensuring authentic, brand-compliant inventory.</p>
                 </div>
-                <div class="service-card">
-                    <div class="service-icon">&#9881;</div>
-                    <h3>Inventory & Logistics</h3>
+                <div class="card service-card reveal">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20V9l9-5 9 5v11"/><path d="M9 20v-7h6v7"/><path d="M3 20h18"/></svg>
+                    </div>
+                    <h3>Inventory &amp; Logistics</h3>
                     <p>Dedicated warehousing and fulfillment operations with real-time inventory tracking, quality inspection, and rapid turnaround for multi-channel distribution.</p>
                 </div>
-                <div class="service-card">
-                    <div class="service-icon">&#9650;</div>
+                <div class="card service-card reveal">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16l1.2 3.6a2.6 2.6 0 0 1-5.1.9 2.6 2.6 0 0 1-5.2 0 2.6 2.6 0 0 1-5.2 0A2.6 2.6 0 0 1 2.8 7.6L4 4z"/><path d="M5 11v9h14v-9"/><path d="M9 20v-5h6v5"/></svg>
+                    </div>
                     <h3>Multi-Channel Retail</h3>
                     <p>Product listing management, brand-compliant content, and pricing strategy across major e-commerce platforms with strict MAP adherence.</p>
                 </div>
             </div>
         </div>
     </section>
+
+    <div class="flowline" aria-hidden="true"></div>
 
     <!-- Categories -->
     <section class="categories" id="categories">
@@ -540,45 +820,47 @@
             <h2 class="section-title">Broad Market Coverage</h2>
             <p class="section-subtitle">We distribute across high-demand consumer product verticals.</p>
             <div class="cat-grid">
-                <div class="cat-item">
-                    <div class="icon">&#127968;</div>
-                    <h4>Home & Kitchen</h4>
+                <div class="card cat-item reveal">
+                    <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 9.5V20h14V9.5"/><path d="M10 20v-6h4v6"/></svg></div>
+                    <h4>Home &amp; Kitchen</h4>
                 </div>
-                <div class="cat-item">
-                    <div class="icon">&#127939;</div>
-                    <h4>Sports & Outdoors</h4>
+                <div class="card cat-item reveal">
+                    <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 6.5v11M17.5 6.5v11M3.5 9v6M20.5 9v6M6.5 12h11"/></svg></div>
+                    <h4>Sports &amp; Outdoors</h4>
                 </div>
-                <div class="cat-item">
-                    <div class="icon">&#128221;</div>
+                <div class="card cat-item reveal">
+                    <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></div>
                     <h4>Office Products</h4>
                 </div>
-                <div class="cat-item">
-                    <div class="icon">&#128118;</div>
-                    <h4>Baby & Family</h4>
+                <div class="card cat-item reveal">
+                    <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12a7 7 0 0 1 14 0v2H5v-2z"/><path d="M5 12V7M19 14l2.5-3.5"/><circle cx="8" cy="19" r="1.8"/><circle cx="16" cy="19" r="1.8"/></svg></div>
+                    <h4>Baby &amp; Family</h4>
                 </div>
-                <div class="cat-item">
-                    <div class="icon">&#127793;</div>
-                    <h4>Patio & Garden</h4>
+                <div class="card cat-item reveal">
+                    <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c-4.5-4.5-4.5-11.5 0-16.5 4.5 5 4.5 12 0 16.5z"/><path d="M12 21V10"/></svg></div>
+                    <h4>Patio &amp; Garden</h4>
                 </div>
-                <div class="cat-item">
-                    <div class="icon">&#128054;</div>
+                <div class="card cat-item reveal">
+                    <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="9" r="1.5"/><circle cx="12" cy="7.5" r="1.5"/><circle cx="17" cy="9" r="1.5"/><path d="M12 12c-2.8 0-5 2.2-5 4.4 0 1.4 1.1 2.6 2.5 2.6h5c1.4 0 2.5-1.2 2.5-2.6 0-2.2-2.2-4.4-5-4.4z"/></svg></div>
                     <h4>Pet Supplies</h4>
                 </div>
-                <div class="cat-item">
-                    <div class="icon">&#128295;</div>
-                    <h4>Tools & Hardware</h4>
+                <div class="card cat-item reveal">
+                    <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4.5 4.5 0 0 0-5.9 5.9L4 17v3h3l4.8-4.8a4.5 4.5 0 0 0 5.9-5.9L15 12l-3-3 2.7-2.7z"/></svg></div>
+                    <h4>Tools &amp; Hardware</h4>
                 </div>
-                <div class="cat-item">
-                    <div class="icon">&#127912;</div>
-                    <h4>Arts & Crafts</h4>
+                <div class="card cat-item reveal">
+                    <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 1 0 0 18c1.4 0 2-.9 1.5-1.9s-.1-2.1 1.4-2.1H17a4 4 0 0 0 4-4c0-5.5-4-10-9-10z"/><circle cx="8" cy="10" r="1"/><circle cx="12" cy="7.5" r="1"/><circle cx="16" cy="10" r="1"/></svg></div>
+                    <h4>Arts &amp; Crafts</h4>
                 </div>
-                <div class="cat-item">
-                    <div class="icon">&#128722;</div>
-                    <h4>Grocery & Gourmet Foods</h4>
+                <div class="card cat-item reveal">
+                    <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h2l2.5 12h11L21 8H7"/><circle cx="9.5" cy="20" r="1.5"/><circle cx="16.5" cy="20" r="1.5"/></svg></div>
+                    <h4>Grocery &amp; Gourmet Foods</h4>
                 </div>
             </div>
         </div>
     </section>
+
+    <div class="flowline" aria-hidden="true"></div>
 
     <!-- Why Us -->
     <section id="why">
@@ -587,29 +869,29 @@
             <h2 class="section-title">Reliable, Compliant, Scalable</h2>
             <p class="section-subtitle">We operate with the standards that serious brands and distributors expect.</p>
             <div class="why-grid">
-                <div class="why-item">
-                    <div class="check">&#10003;</div>
+                <div class="card why-item reveal">
+                    <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.5l2.5 2.5 4.5-5.5"/></svg></div>
                     <div>
                         <h4>MAP Policy Compliance</h4>
                         <p>We strictly adhere to Minimum Advertised Price policies across all channels. Brand pricing integrity is non-negotiable.</p>
                     </div>
                 </div>
-                <div class="why-item">
-                    <div class="check">&#10003;</div>
+                <div class="card why-item reveal">
+                    <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.5l2.5 2.5 4.5-5.5"/></svg></div>
                     <div>
                         <h4>Authorized Channels Only</h4>
                         <p>We source exclusively through authorized distributors and wholesale partners. No gray market, no unauthorized sourcing.</p>
                     </div>
                 </div>
-                <div class="why-item">
-                    <div class="check">&#10003;</div>
+                <div class="card why-item reveal">
+                    <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.5l2.5 2.5 4.5-5.5"/></svg></div>
                     <div>
                         <h4>Dedicated Fulfillment</h4>
                         <p>Professional warehousing with quality control, proper storage conditions, and efficient logistics infrastructure.</p>
                     </div>
                 </div>
-                <div class="why-item">
-                    <div class="check">&#10003;</div>
+                <div class="card why-item reveal">
+                    <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.5l2.5 2.5 4.5-5.5"/></svg></div>
                     <div>
                         <h4>Brand-Compliant Content</h4>
                         <p>Product listings maintain brand guidelines with accurate descriptions, authorized imagery, and proper categorization.</p>
@@ -626,7 +908,7 @@
             <h2 class="section-title">Partner Inquiries</h2>
             <p class="section-subtitle">Interested in working with us? We'd like to hear from you.</p>
             <div class="contact-grid">
-                <div class="contact-info">
+                <div class="contact-info reveal">
                     <h3>Contact Information</h3>
                     <div class="contact-item">
                         <div>
@@ -636,7 +918,7 @@
                     </div>
                     <div class="contact-item">
                         <div>
-                            <div class="label">Wholesale & Purchasing</div>
+                            <div class="label">Wholesale &amp; Purchasing</div>
                             <div class="value"><a href="mailto:wholesale@themonacoflow.com">wholesale@themonacoflow.com</a></div>
                         </div>
                     </div>
@@ -653,11 +935,11 @@
                         </div>
                     </div>
                 </div>
-                <div style="border: 1px solid var(--border); border-radius: 10px; padding: 2.5rem; background: var(--navy);">
-                    <h3 style="color: var(--white); font-size: 1.15rem; margin-bottom: 1rem;">Business Hours</h3>
-                    <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem;">Monday - Friday: 9:00 AM - 5:00 PM ET</p>
-                    <h3 style="color: var(--white); font-size: 1.15rem; margin-bottom: 1rem;">New Supplier Inquiries</h3>
-                    <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem;">If you are a distributor or wholesale partner interested in working with us, please reach out via email or phone. We review all inquiries within one business day.</p>
+                <div class="card contact-panel reveal">
+                    <h3>Business Hours</h3>
+                    <p>Monday - Friday: 9:00 AM - 5:00 PM ET</p>
+                    <h3>New Supplier Inquiries</h3>
+                    <p>If you are a distributor or wholesale partner interested in working with us, please reach out via email or phone. We review all inquiries within one business day.</p>
                     <a href="mailto:wholesale@themonacoflow.com" class="btn">Email Our Team</a>
                 </div>
             </div>
@@ -665,9 +947,30 @@
     </section>
 
     <!-- Footer -->
+    <div class="flowline" aria-hidden="true"></div>
     <footer>
-        <p>&copy; 2026 Monaco Flow LLC. All rights reserved. &nbsp;|&nbsp; <a href="privacy.html" style="color: var(--text-muted); text-decoration: none;">Privacy Policy</a></p>
+        <p>&copy; 2026 Monaco Flow LLC. All rights reserved. &nbsp;|&nbsp; <a href="privacy.html">Privacy Policy</a></p>
     </footer>
+
+    <script>
+        (function () {
+            var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            var items = document.querySelectorAll('.reveal');
+            if (reduced || !('IntersectionObserver' in window)) {
+                items.forEach(function (el) { el.classList.add('in'); });
+                return;
+            }
+            var io = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('in');
+                        io.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+            items.forEach(function (el) { io.observe(el); });
+        })();
+    </script>
 
 </body>
 </html>
