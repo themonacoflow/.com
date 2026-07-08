@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Monaco Flow &#8212; Ad Creatives That Convert</title>
+  <meta name="description" content="We build and ship the ad creatives your business should have been running already.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://themonacoflow.com/">
+
+  <meta property="og:title" content="Monaco Flow &#8212; Ad Creatives That Convert">
+  <meta property="og:description" content="We build and ship the ad creatives your business should have been running already.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://themonacoflow.com/">
+  <meta property="og:image" content="https://themonacoflow.com/og-placeholder.svg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Monaco Flow &#8212; Ad Creatives That Convert">
+  <meta name="twitter:description" content="We build and ship the ad creatives your business should have been running already.">
+  <meta name="twitter:image" content="https://themonacoflow.com/og-placeholder.svg">
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Meta Pixel stub: add the Meta Pixel base code here before launch. -->
+  <!-- GA4 gtag stub: add the Google tag script here when the measurement ID is ready. -->
+
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    :root {
+      color-scheme: dark;
+      --ink: #050506;
+      --panel: #111316;
+      --paper: #f5efe3;
+      --paper-soft: #d9d0c2;
+      --muted: #9f978a;
+      --gold: #d8b55b;
+      --blue: #36d7ff;
+      --line: rgba(245, 239, 227, 0.14);
+      --line-strong: rgba(216, 181, 91, 0.42);
+      --max: 1180px;
+      --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--ink);
+    }
+
+    body {
+      min-width: 320px;
+      margin: 0;
+      font-family: "Outfit", sans-serif;
+      line-height: 1.5;
+      letter-spacing: 0;
+      color: var(--paper);
+      background:
+        linear-gradient(145deg, rgba(54, 215, 255, 0.12), transparent 28rem),
+        linear-gradient(215deg, rgba(216, 181, 91, 0.14), transparent 34rem),
+        var(--ink);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+      opacity: 0.18;
+      background-image:
+        repeating-linear-gradient(0deg, rgba(255,255,255,0.04) 0, rgba(255,255,255,0.04) 1px, transparent 1px, transparent 5px),
+        repeating-linear-gradient(90deg, rgba(255,255,255,0.035) 0, rgba(255,255,255,0.035) 1px, transparent 1px, transparent 7px);
+      mix-blend-mode: screen;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+      background: linear-gradient(180deg, transparent, rgba(5, 5, 6, 0.88) 78%);
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: 1rem;
+      top: -4rem;
+      z-index: 999;
+      padding: 0.75rem 1rem;
+      color: var(--ink);
+      background: var(--paper);
+      text-decoration: none;
+      transition: top 180ms var(--ease);
+    }
+
+    .skip-link:focus {
+      top: 1rem;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid rgba(245, 239, 227, 0.08);
+      background: rgba(5, 5, 6, 0.82);
+      backdrop-filter: blur(18px);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      width: min(100%, var(--max));
+      margin: 0 auto;
+      padding: 0.9rem 1rem;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      min-width: max-content;
+      font-family: "Syne", sans-serif;
+      font-size: 0.96rem;
+      font-weight: 800;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .brand-mark {
+      display: inline-grid;
+      width: 2rem;
+      height: 2rem;
+      place-items: center;
+      color: var(--ink);
+      background: linear-gradient(135deg, var(--gold), var(--blue));
+      border: 1px solid rgba(255,255,255,0.24);
+      font-size: 0.76rem;
+    }
+
+    .nav-links {
+      display: none;
+      align-items: center;
+      gap: 1.2rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      color: var(--paper-soft);
+      font-size: 0.88rem;
+      font-weight: 600;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+    }
+
+    .nav-links a:hover,
+    .nav-links a:focus-visible {
+      color: var(--gold);
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 2.9rem;
+      padding: 0 1rem;
+      border: 1px solid var(--line-strong);
+      color: var(--ink);
+      background: var(--gold);
+      font-weight: 700;
+      text-decoration: none;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      letter-spacing: 0;
+      transition: transform 180ms var(--ease), background 180ms var(--ease), border-color 180ms var(--ease);
+    }
+
+    .button:hover,
+    .button:focus-visible {
+      transform: translateY(-2px);
+      background: #efcf76;
+      border-color: #efcf76;
+    }
+
+    .button.secondary {
+      color: var(--paper);
+      background: rgba(245, 239, 227, 0.04);
+      border-color: rgba(245, 239, 227, 0.24);
+    }
+
+    .button.secondary:hover,
+    .button.secondary:focus-visible {
+      color: var(--ink);
+      background: var(--blue);
+      border-color: var(--blue);
+    }
+
+    main {
+      overflow: hidden;
+    }
+
+    section {
+      position: relative;
+      padding: 4.5rem 1rem;
+    }
+
+    .section-inner {
+      width: min(100%, var(--max));
+      margin: 0 auto;
+    }
+
+    .eyebrow {
+      margin: 0 0 0.8rem;
+      color: var(--gold);
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      font-family: "Syne", sans-serif;
+      font-weight: 800;
+      line-height: 0.98;
+      letter-spacing: 0;
+      color: var(--paper);
+    }
+
+    h1 {
+      max-width: 9.2em;
+      font-size: 3.35rem;
+    }
+
+    h2 {
+      max-width: 10em;
+      font-size: 2.4rem;
+    }
+
+    h3 {
+      font-size: 1.35rem;
+      line-height: 1.1;
+    }
+
+    .section-copy {
+      max-width: 44rem;
+      margin: 1.2rem 0 0;
+      color: var(--paper-soft);
+      font-size: 1.05rem;
+    }
+
+    .hero {
+      min-height: 92vh;
+      display: grid;
+      align-items: center;
+      padding-top: 6rem;
+      background:
+        linear-gradient(120deg, rgba(216, 181, 91, 0.18), transparent 30%),
+        linear-gradient(300deg, rgba(54, 215, 255, 0.18), transparent 34%),
+        linear-gradient(180deg, rgba(5, 5, 6, 0.2), rgba(5, 5, 6, 0.92));
+    }
+
+    .hero-grid {
+      display: grid;
+      gap: 3rem;
+      align-items: end;
+    }
+
+    .hero-copy {
+      max-width: 58rem;
+    }
+
+    .hero-copy p {
+      max-width: 45rem;
+      margin: 1.4rem 0 0;
+      color: var(--paper-soft);
+      font-size: 1.2rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-top: 2rem;
+    }
+
+    .hero-metric {
+      display: grid;
+      gap: 1rem;
+      max-width: 30rem;
+      border-top: 1px solid var(--line);
+      padding-top: 1.2rem;
+    }
+
+    .hero-metric p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .signal-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border: 1px solid var(--line);
+    }
+
+    .signal-strip span {
+      min-height: 4.8rem;
+      padding: 0.75rem;
+      border-right: 1px solid var(--line);
+      color: var(--paper-soft);
+      background:
+        linear-gradient(160deg, rgba(255,255,255,0.08), transparent),
+        rgba(255,255,255,0.02);
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .signal-strip span:last-child {
+      border-right: 0;
+    }
+
+    .niche-anchor {
+      padding: 1.4rem 1rem;
+      border-block: 1px solid var(--line);
+      background: rgba(245, 239, 227, 0.035);
+    }
+
+    .niche-anchor p {
+      width: min(100%, var(--max));
+      margin: 0 auto;
+      color: var(--paper);
+      font-family: "Syne", sans-serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      line-height: 1.25;
+    }
+
+    .portfolio-head {
+      display: grid;
+      gap: 1.6rem;
+      margin-bottom: 2rem;
+    }
+
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+    }
+
+    .tab {
+      min-height: 2.55rem;
+      padding: 0 0.95rem;
+      border: 1px solid var(--line);
+      color: var(--paper-soft);
+      background: rgba(245, 239, 227, 0.035);
+      font: 700 0.82rem/1 "Outfit", sans-serif;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    .tab[aria-selected="true"] {
+      color: var(--ink);
+      background: var(--blue);
+      border-color: var(--blue);
+    }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .creative-card {
+      position: relative;
+      display: grid;
+      min-height: 27rem;
+      aspect-ratio: 4 / 5;
+      overflow: hidden;
+      isolation: isolate;
+      border: 1px solid var(--line);
+      background: var(--panel);
+    }
+
+    .creative-card[hidden] {
+      display: none;
+    }
+
+    .creative-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      background: var(--card-bg);
+    }
+
+    .creative-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background:
+        linear-gradient(180deg, rgba(5,5,6,0.06), rgba(5,5,6,0.88)),
+        repeating-linear-gradient(90deg, rgba(255,255,255,0.05) 0 1px, transparent 1px 18px);
+      opacity: 0.7;
+    }
+
+    .creative-card.med {
+      --card-bg: linear-gradient(142deg, #22130f, #4b3022 42%, #d8b55b 150%);
+    }
+
+    .creative-card.real {
+      --card-bg: linear-gradient(142deg, #07141b, #11394a 48%, #36d7ff 150%);
+    }
+
+    .creative-card.home {
+      --card-bg: linear-gradient(142deg, #10140f, #273924 48%, #d8b55b 145%);
+    }
+
+    .card-inner {
+      display: flex;
+      min-height: 100%;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 1rem;
+    }
+
+    .card-tags,
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.7rem;
+    }
+
+    .tag,
+    .format {
+      display: inline-flex;
+      align-items: center;
+      min-height: 1.9rem;
+      padding: 0 0.65rem;
+      border: 1px solid rgba(245, 239, 227, 0.26);
+      color: var(--paper);
+      background: rgba(5, 5, 6, 0.28);
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .format {
+      color: var(--ink);
+      background: var(--paper);
+      border-color: var(--paper);
+    }
+
+    .creative-card h3 {
+      max-width: 8.5em;
+      margin-top: auto;
+      font-size: 2.35rem;
+    }
+
+    .creative-card p {
+      max-width: 18rem;
+      margin: 0.85rem 0 1.15rem;
+      color: var(--paper-soft);
+      font-size: 0.96rem;
+    }
+
+    .fake-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 2.45rem;
+      padding: 0 0.8rem;
+      color: var(--ink);
+      background: var(--paper);
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .what-grid,
+    .steps-grid {
+      display: grid;
+      gap: 1rem;
+      margin-top: 2.2rem;
+    }
+
+    .deliverable,
+    .step,
+    .pricing-panel {
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(180deg, rgba(245, 239, 227, 0.055), rgba(245, 239, 227, 0.018)),
+        rgba(17, 19, 22, 0.72);
+    }
+
+    .deliverable,
+    .step {
+      padding: 1.35rem;
+    }
+
+    .marker {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.5rem;
+      height: 2.5rem;
+      margin-bottom: 1.4rem;
+      border: 1px solid var(--line-strong);
+      color: var(--gold);
+      font-weight: 800;
+    }
+
+    .deliverable p,
+    .step p {
+      margin: 1rem 0 0;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .step {
+      position: relative;
+    }
+
+    .pricing {
+      text-align: center;
+    }
+
+    .pricing .section-inner {
+      max-width: 780px;
+    }
+
+    .pricing h2 {
+      max-width: none;
+      margin-inline: auto;
+    }
+
+    .pricing-panel {
+      margin-top: 2rem;
+      padding: 2rem 1.2rem;
+    }
+
+    .price {
+      margin: 0;
+      font-family: "Syne", sans-serif;
+      font-size: 3.2rem;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .pricing-panel p {
+      max-width: 34rem;
+      margin: 1rem auto 0;
+      color: var(--paper-soft);
+      font-size: 1.08rem;
+    }
+
+    .pricing-panel .button {
+      margin-top: 1.5rem;
+    }
+
+    .site-footer {
+      border-top: 1px solid var(--line);
+      padding: 2rem 1rem;
+      background: rgba(5, 5, 6, 0.72);
+    }
+
+    .footer-inner {
+      display: grid;
+      gap: 0.6rem;
+      width: min(100%, var(--max));
+      margin: 0 auto;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .footer-inner a {
+      color: var(--paper);
+      text-decoration: none;
+    }
+
+    .footer-inner a:hover,
+    .footer-inner a:focus-visible {
+      color: var(--gold);
+    }
+
+    [data-reveal] {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 600ms var(--ease), transform 600ms var(--ease);
+    }
+
+    [data-reveal].is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+      }
+
+      [data-reveal] {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    @media (min-width: 560px) {
+      .portfolio-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .footer-inner {
+        grid-template-columns: 1fr auto;
+        align-items: center;
+      }
+    }
+
+    @media (min-width: 760px) {
+      .nav {
+        padding-inline: 1.4rem;
+      }
+
+      .nav-links {
+        display: flex;
+      }
+
+      h1 {
+        font-size: 5.8rem;
+      }
+
+      h2 {
+        font-size: 3.45rem;
+      }
+
+      section {
+        padding: 6.5rem 1.4rem;
+      }
+
+      .hero {
+        padding-top: 7rem;
+      }
+
+      .hero-grid {
+        grid-template-columns: minmax(0, 1fr) 25rem;
+      }
+
+      .niche-anchor p {
+        font-size: 1.55rem;
+      }
+
+      .portfolio-head {
+        grid-template-columns: 1fr auto;
+        align-items: end;
+      }
+
+      .what-grid,
+      .steps-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .step:not(:last-child)::after {
+        content: "->";
+        position: absolute;
+        top: 1.82rem;
+        right: -0.78rem;
+        z-index: 1;
+        color: var(--gold);
+        font-weight: 800;
+      }
+
+      .pricing-panel {
+        padding: 2.6rem;
+      }
+
+      .price {
+        font-size: 4.8rem;
+      }
+    }
+
+    @media (min-width: 1040px) {
+      .portfolio-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 420px) {
+      .nav {
+        align-items: flex-start;
+      }
+
+      .brand {
+        font-size: 0.82rem;
+      }
+
+      .nav .button {
+        min-height: 2.55rem;
+        padding-inline: 0.72rem;
+        font-size: 0.68rem;
+      }
+
+      h1 {
+        font-size: 2.78rem;
+      }
+
+      .creative-card h3 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header" aria-label="Site header">
+    <nav class="nav" aria-label="Primary navigation">
+      <a class="brand" href="#top" aria-label="Monaco Flow home">
+        <span class="brand-mark" aria-hidden="true">MF</span>
+        <span>Monaco Flow</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#portfolio">Portfolio</a></li>
+        <li><a href="#what-you-get">What You Get</a></li>
+        <li><a href="#process">Process</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+      </ul>
+      <a class="button secondary" href="https://calendly.com/monacoflow/strategy">Book a Call</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="section-inner hero-grid">
+        <div class="hero-copy" data-reveal>
+          <p class="eyebrow">Ad creative engine for Meta</p>
+          <h1 id="hero-title">We build your ads. You answer the phone.</h1>
+          <p>Monaco Flow builds and ships the ad creatives your business should have been running already.</p>
+          <div class="hero-actions">
+            <a class="button" href="https://calendly.com/monacoflow/strategy">Book a Strategy Call</a>
+            <a class="button secondary" href="#portfolio">View Creative Concepts</a>
+          </div>
+        </div>
+        <aside class="hero-metric" aria-label="Creative delivery summary" data-reveal>
+          <div class="signal-strip" aria-hidden="true">
+            <span>Hook</span>
+            <span>Creative</span>
+            <span>Deploy</span>
+          </div>
+          <p>Weekly creative drops for business owners who need ads moving in market, not ideas sitting in a folder.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="niche-anchor" aria-label="Niche focus">
+      <p>Built for med spas, real estate teams, home services, and local operators who need better ads every week.</p>
+    </section>
+
+    <section id="portfolio" aria-labelledby="portfolio-title">
+      <div class="section-inner">
+        <div class="portfolio-head" data-reveal>
+          <div>
+            <p class="eyebrow">Spec portfolio</p>
+            <h2 id="portfolio-title">Creative directions ready to ship.</h2>
+            <p class="section-copy">Concept cards below show the kind of Meta creative system Monaco Flow builds, rotates, and kills based on performance.</p>
+          </div>
+          <div class="tabs" role="tablist" aria-label="Portfolio filters">
+            <button class="tab" type="button" role="tab" aria-selected="true" data-filter="all">All</button>
+            <button class="tab" type="button" role="tab" aria-selected="false" data-filter="med">Med Spas</button>
+            <button class="tab" type="button" role="tab" aria-selected="false" data-filter="real">Real Estate</button>
+            <button class="tab" type="button" role="tab" aria-selected="false" data-filter="home">Home Services</button>
+          </div>
+        </div>
+
+        <div class="portfolio-grid" aria-live="polite">
+          <article class="creative-card med" data-niche="med" data-reveal>
+            <div class="card-inner">
+              <div class="card-tags"><span class="tag">Med Spa</span><span class="format">Feed</span></div>
+              <div>
+                <h3>This Week Only: $199 Botox</h3>
+                <p>Offer-led creative with a luxury treatment-room tone and direct booking pressure.</p>
+                <span class="fake-cta">Book Now</span>
+              </div>
+              <div class="card-footer"><span class="tag">Promo</span><span class="tag">Local lead</span></div>
+            </div>
+          </article>
+
+          <article class="creative-card real" data-niche="real" data-reveal>
+            <div class="card-inner">
+              <div class="card-tags"><span class="tag">Real Estate</span><span class="format">Reel</span></div>
+              <div>
+                <h3>Open House. Offers Monday.</h3>
+                <p>Fast-turn listing creative built to push showing traffic before the weekend ends.</p>
+                <span class="fake-cta">See the Home</span>
+              </div>
+              <div class="card-footer"><span class="tag">Listing</span><span class="tag">Urgency</span></div>
+            </div>
+          </article>
+
+          <article class="creative-card home" data-niche="home" data-reveal>
+            <div class="card-inner">
+              <div class="card-tags"><span class="tag">Home Services</span><span class="format">Story</span></div>
+              <div>
+                <h3>AC Tune-Up Before the Heat Hits</h3>
+                <p>Seasonal maintenance hook that turns weather anxiety into booked service calls.</p>
+                <span class="fake-cta">Schedule Today</span>
+              </div>
+              <div class="card-footer"><span class="tag">Seasonal</span><span class="tag">Service</span></div>
+            </div>
+          </article>
+
+          <article class="creative-card med" data-niche="med" data-reveal>
+            <div class="card-inner">
+              <div class="card-tags"><span class="tag">Med Spa</span><span class="format">Reel</span></div>
+              <div>
+                <h3>Microneedling in 20 Minutes</h3>
+                <p>Treatment spotlight concept with quick cuts, clean overlays, and a soft CTA.</p>
+                <span class="fake-cta">Reserve a Spot</span>
+              </div>
+              <div class="card-footer"><span class="tag">Education</span><span class="tag">Trust</span></div>
+            </div>
+          </article>
+
+          <article class="creative-card real" data-niche="real" data-reveal>
+            <div class="card-inner">
+              <div class="card-tags"><span class="tag">Real Estate</span><span class="format">Carousel</span></div>
+              <div>
+                <h3>Your Home Is Worth More Than Zillow Says</h3>
+                <p>Seller lead creative built around curiosity, local comps, and a valuation CTA.</p>
+                <span class="fake-cta">Get Estimate</span>
+              </div>
+              <div class="card-footer"><span class="tag">Seller leads</span><span class="tag">Comp set</span></div>
+            </div>
+          </article>
+
+          <article class="creative-card home" data-niche="home" data-reveal>
+            <div class="card-inner">
+              <div class="card-tags"><span class="tag">Home Services</span><span class="format">Feed</span></div>
+              <div>
+                <h3>Same-Day Roof Leak Check</h3>
+                <p>Problem-aware creative that makes the inspection feel urgent and low-friction.</p>
+                <span class="fake-cta">Call the Crew</span>
+              </div>
+              <div class="card-footer"><span class="tag">Emergency</span><span class="tag">Lead gen</span></div>
+            </div>
+          </article>
+
+          <article class="creative-card med" data-niche="med" data-reveal>
+            <div class="card-inner">
+              <div class="card-tags"><span class="tag">Med Spa</span><span class="format">Story</span></div>
+              <div>
+                <h3>Your Lip Flip Era Starts Friday</h3>
+                <p>Aspirational creative with a tight beauty hook and a clear limited-slot CTA.</p>
+                <span class="fake-cta">Claim Slot</span>
+              </div>
+              <div class="card-footer"><span class="tag">Aesthetic</span><span class="tag">Booking</span></div>
+            </div>
+          </article>
+
+          <article class="creative-card real" data-niche="real" data-reveal>
+            <div class="card-inner">
+              <div class="card-tags"><span class="tag">Real Estate</span><span class="format">Feed</span></div>
+              <div>
+                <h3>3 Homes Under $750K This Week</h3>
+                <p>Buyer lead creative for market-specific inventory, price anchors, and saves.</p>
+                <span class="fake-cta">View List</span>
+              </div>
+              <div class="card-footer"><span class="tag">Buyer leads</span><span class="tag">Inventory</span></div>
+            </div>
+          </article>
+
+          <article class="creative-card home" data-niche="home" data-reveal>
+            <div class="card-inner">
+              <div class="card-tags"><span class="tag">Home Services</span><span class="format">Reel</span></div>
+              <div>
+                <h3>Your Water Heater Is Warning You</h3>
+                <p>Education hook that names the signs and moves homeowners into quote requests.</p>
+                <span class="fake-cta">Get Quote</span>
+              </div>
+              <div class="card-footer"><span class="tag">Problem aware</span><span class="tag">Quote</span></div>
+            </div>
+          </article>
+
+          <article class="creative-card med" data-niche="med" data-reveal>
+            <div class="card-inner">
+              <div class="card-tags"><span class="tag">Med Spa</span><span class="format">Carousel</span></div>
+              <div>
+                <h3>Body Sculpting Without Guesswork</h3>
+                <p>Myth-busting carousel structure for consultations, objections, and outcomes.</p>
+                <span class="fake-cta">Start Consult</span>
+              </div>
+              <div class="card-footer"><span class="tag">Consult</span><span class="tag">Objection</span></div>
+            </div>
+          </article>
+
+          <article class="creative-card real" data-niche="real" data-reveal>
+            <div class="card-inner">
+              <div class="card-tags"><span class="tag">Real Estate</span><span class="format">Story</span></div>
+              <div>
+                <h3>Sold Above Ask in 6 Days</h3>
+                <p>Proof-style creative designed to turn a recent win into the next listing lead.</p>
+                <span class="fake-cta">Sell With Us</span>
+              </div>
+              <div class="card-footer"><span class="tag">Proof</span><span class="tag">Seller CTA</span></div>
+            </div>
+          </article>
+
+          <article class="creative-card home" data-niche="home" data-reveal>
+            <div class="card-inner">
+              <div class="card-tags"><span class="tag">Home Services</span><span class="format">Carousel</span></div>
+              <div>
+                <h3>Book the Cleanest Driveway on the Block</h3>
+                <p>Before-and-after structure without stock photos, built for pressure washing leads.</p>
+                <span class="fake-cta">Book Cleaning</span>
+              </div>
+              <div class="card-footer"><span class="tag">Before/after</span><span class="tag">Local</span></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="what-you-get" aria-labelledby="what-title">
+      <div class="section-inner">
+        <p class="eyebrow" data-reveal>What you get</p>
+        <h2 id="what-title" data-reveal>Creative output with media buying attached.</h2>
+        <div class="what-grid">
+          <article class="deliverable" data-reveal>
+            <span class="marker" aria-hidden="true">01</span>
+            <h3>8-12 Ad Creatives/Month</h3>
+            <p>Video + static, tailored to your brand.</p>
+          </article>
+          <article class="deliverable" data-reveal>
+            <span class="marker" aria-hidden="true">02</span>
+            <h3>Deployed &amp; Managed on Meta</h3>
+            <p>We handle Ads Manager so you don't have to.</p>
+          </article>
+          <article class="deliverable" data-reveal>
+            <span class="marker" aria-hidden="true">03</span>
+            <h3>Monthly Performance Report</h3>
+            <p>See what's working, what we're testing next.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="process" aria-labelledby="process-title">
+      <div class="section-inner">
+        <p class="eyebrow" data-reveal>How it works</p>
+        <h2 id="process-title" data-reveal>Built to keep new creative moving.</h2>
+        <div class="steps-grid">
+          <article class="step" data-reveal>
+            <span class="marker" aria-hidden="true">01</span>
+            <h3>15-min onboarding call</h3>
+            <p>We learn your market, offer, brand constraints, and the services you want to push first.</p>
+          </article>
+          <article class="step" data-reveal>
+            <span class="marker" aria-hidden="true">02</span>
+            <h3>First batch in 48 hours</h3>
+            <p>Your first concepts move from hooks to finished ads fast enough to start testing immediately.</p>
+          </article>
+          <article class="step" data-reveal>
+            <span class="marker" aria-hidden="true">03</span>
+            <h3>Weekly creative drops, underperformers killed automatically</h3>
+            <p>Fresh assets go live, weak ads get paused, and the next batch is built from performance data.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="pricing" id="pricing" aria-labelledby="pricing-title">
+      <div class="section-inner" data-reveal>
+        <p class="eyebrow">Pricing</p>
+        <h2 id="pricing-title">$2,000/mo</h2>
+        <div class="pricing-panel">
+          <p class="price">$2,000/mo</p>
+          <p>Everything included. Ad spend billed separately. No contracts. Cancel anytime.</p>
+          <a class="button" href="https://calendly.com/monacoflow/strategy">Book a Strategy Call</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span>Monaco Flow LLC</span>
+      <span><a href="mailto:hello@themonacoflow.com">hello@themonacoflow.com</a> &middot; &copy; 2026 Monaco Flow LLC</span>
+    </div>
+  </footer>
+
+  <script>
+    const tabButtons = document.querySelectorAll("[data-filter]");
+    const cards = document.querySelectorAll(".creative-card[data-niche]");
+
+    tabButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const filter = button.dataset.filter;
+
+        tabButtons.forEach((tab) => {
+          tab.setAttribute("aria-selected", String(tab === button));
+        });
+
+        cards.forEach((card) => {
+          card.hidden = filter !== "all" && card.dataset.niche !== filter;
+        });
+      });
+    });
+
+    const revealItems = document.querySelectorAll("[data-reveal]");
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if ("IntersectionObserver" in window && !reduceMotion) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.16 });
+
+      revealItems.forEach((item) => observer.observe(item));
+    } else {
+      revealItems.forEach((item) => item.classList.add("is-visible"));
+    }
+  </script>
+</body>
+</html>
