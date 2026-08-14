@@ -1,976 +1,317 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Monaco Flow | E-Commerce Retail & Distribution</title>
-    <meta name="description" content="Monaco Flow LLC - Authorized e-commerce retail and distribution of consumer goods. Based in Florida.">
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <meta property="og:title" content="The Monaco Flow | E-Commerce Retail & Distribution">
-    <meta property="og:description" content="Monaco Flow LLC - Authorized e-commerce retail and distribution of consumer goods across home, lifestyle, and everyday essentials.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://themonacoflow.com">
-    <meta property="og:image" content="https://themonacoflow.com/hero.jpg">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <style>
-        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-        :root {
-            --ink: #070f1d;
-            --navy: #0a1628;
-            --navy-2: #10203a;
-            --navy-3: #0c1930;
-            --gold-deep: #8a6a2c;
-            --gold: #c8a44e;
-            --gold-bright: #e8cf8e;
-            --gold-glint: #f6e7bb;
-            --text: #e9ecf2;
-            --text-muted: #97a2b6;
-            --white: #ffffff;
-            --border: rgba(200, 164, 78, 0.16);
-            --font-display: 'Fraunces', Georgia, serif;
-            --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace;
-        }
-
-        html { scroll-behavior: smooth; }
-
-        body {
-            font-family: var(--font-body);
-            background: var(--navy);
-            color: var(--text);
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        /* Film grain — kills the flat digital feel */
-        body::after {
-            content: '';
-            position: fixed;
-            inset: 0;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
-            opacity: 0.05;
-            pointer-events: none;
-            z-index: 9999;
-        }
-
-        ::selection { background: rgba(200, 164, 78, 0.35); color: var(--white); }
-
-        /* Gilded text — gold as light, not paint */
-        .gilt {
-            background: linear-gradient(105deg, var(--gold-deep) 0%, var(--gold-bright) 30%, var(--gold) 55%, var(--gold-glint) 80%, var(--gold) 100%);
-            background-size: 220% 100%;
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            animation: gilt-drift 7s ease-in-out infinite alternate;
-        }
-
-        @keyframes gilt-drift {
-            from { background-position: 0% 50%; }
-            to   { background-position: 100% 50%; }
-        }
-
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(7, 15, 29, 0.85);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            z-index: 100;
-            padding: 0 2rem;
-        }
-
-        nav::after {
-            content: '';
-            position: absolute;
-            left: 0; right: 0; bottom: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(200,164,78,0.35) 30%, rgba(200,164,78,0.35) 70%, transparent);
-        }
-
-        .nav-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 72px;
-        }
-
-        .logo {
-            font-family: var(--font-display);
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: var(--white);
-            text-decoration: none;
-            letter-spacing: 0.06em;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2.2rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 0.88rem;
-            font-weight: 500;
-            letter-spacing: 0.02em;
-            transition: color 0.2s;
-        }
-
-        .nav-links a:hover, .nav-links a:focus-visible { color: var(--gold-bright); }
-
-        .nav-toggle {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--white);
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        /* Hero */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            padding: 8rem 2rem 5rem;
-            position: relative;
-            overflow: hidden;
-            isolation: isolate;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: url('hero.jpg') center/cover no-repeat;
-            filter: saturate(0.6) contrast(1.05);
-            z-index: -2;
-        }
-
-        .hero::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background:
-                linear-gradient(100deg, rgba(7, 15, 29, 0.93) 0%, rgba(7, 15, 29, 0.78) 42%, rgba(10, 22, 40, 0.42) 78%, rgba(10, 22, 40, 0.3) 100%),
-                linear-gradient(180deg, rgba(7, 15, 29, 0.3) 0%, transparent 35%, rgba(10, 22, 40, 0.55) 78%, var(--navy) 100%);
-            z-index: -1;
-        }
-
-        .hero-inner {
-            max-width: 1100px;
-            margin: 0 auto;
-            width: 100%;
-        }
-
-        .hero-content { max-width: 680px; }
-
-        .hero-tag {
-            font-family: var(--font-mono);
-            display: inline-block;
-            font-size: 0.75rem;
-            font-weight: 500;
-            letter-spacing: 0.22em;
-            text-transform: uppercase;
-            color: var(--gold-bright);
-            margin-bottom: 1.8rem;
-        }
-
-        .hero-tag::before {
-            content: '';
-            display: inline-block;
-            width: 34px;
-            height: 1px;
-            background: linear-gradient(90deg, var(--gold-deep), var(--gold-bright));
-            vertical-align: middle;
-            margin-right: 0.9rem;
-        }
-
-        .hero h1 {
-            font-family: var(--font-display);
-            font-size: clamp(2.5rem, 5.4vw, 3.9rem);
-            font-weight: 600;
-            line-height: 1.08;
-            letter-spacing: -0.01em;
-            margin-bottom: 1.6rem;
-            color: var(--white);
-        }
-
-        .hero p {
-            font-size: 1.12rem;
-            color: var(--text-muted);
-            max-width: 560px;
-            margin-bottom: 2.6rem;
-            line-height: 1.75;
-        }
-
-        /* Buttons — gold as material */
-        .btn {
-            position: relative;
-            display: inline-block;
-            padding: 0.95rem 2.3rem;
-            background: linear-gradient(180deg, var(--gold-bright) 0%, var(--gold) 48%, #ad8b3c 100%);
-            color: var(--ink);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.95rem;
-            border-radius: 6px;
-            overflow: hidden;
-            box-shadow:
-                inset 0 1px 0 rgba(255, 255, 255, 0.45),
-                inset 0 -1px 0 rgba(0, 0, 0, 0.22),
-                0 10px 26px -10px rgba(200, 164, 78, 0.55);
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .btn::after {
-            content: '';
-            position: absolute;
-            top: 0; bottom: 0;
-            left: -70%;
-            width: 45%;
-            background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.5), transparent);
-            transform: skewX(-18deg);
-            transition: left 0.55s ease;
-        }
-
-        .btn:hover, .btn:focus-visible {
-            transform: translateY(-2px);
-            box-shadow:
-                inset 0 1px 0 rgba(255, 255, 255, 0.45),
-                inset 0 -1px 0 rgba(0, 0, 0, 0.22),
-                0 16px 34px -12px rgba(200, 164, 78, 0.7);
-        }
-
-        .btn:hover::after { left: 125%; }
-
-        .btn-outline {
-            background: transparent;
-            color: var(--gold-bright);
-            border: 1px solid rgba(200, 164, 78, 0.55);
-            box-shadow: none;
-            margin-left: 1rem;
-        }
-
-        .btn-outline::after { display: none; }
-
-        .btn-outline:hover, .btn-outline:focus-visible {
-            background: rgba(200, 164, 78, 0.09);
-            border-color: var(--gold-bright);
-            box-shadow: 0 0 24px -8px rgba(200, 164, 78, 0.45);
-        }
-
-        /* Signature: the route line */
-        .route {
-            margin-top: 4.5rem;
-            max-width: 620px;
-        }
-
-        .route svg { width: 100%; height: auto; display: block; overflow: visible; }
-
-        .route .track { stroke: rgba(200, 164, 78, 0.28); stroke-width: 1; }
-        .route .node { fill: var(--navy); stroke: var(--gold); stroke-width: 1.2; }
-        .route .node-core { fill: var(--gold); }
-
-        .route .pulse {
-            fill: var(--gold-glint);
-            filter: drop-shadow(0 0 6px rgba(246, 231, 187, 0.9));
-        }
-
-        .route text {
-            font-family: var(--font-mono);
-            font-size: 8.5px;
-            letter-spacing: 0.18em;
-            fill: var(--text-muted);
-        }
-
-        /* Sections */
-        section { padding: 6.5rem 2rem; position: relative; }
-
-        .section-inner { max-width: 1100px; margin: 0 auto; }
-
-        .section-label {
-            font-family: var(--font-mono);
-            font-size: 0.72rem;
-            font-weight: 500;
-            letter-spacing: 0.24em;
-            text-transform: uppercase;
-            color: var(--gold);
-            margin-bottom: 1rem;
-        }
-
-        .section-label::before {
-            content: '';
-            display: inline-block;
-            width: 26px;
-            height: 1px;
-            background: var(--gold);
-            opacity: 0.6;
-            vertical-align: middle;
-            margin-right: 0.8rem;
-        }
-
-        .section-title {
-            font-family: var(--font-display);
-            font-size: clamp(1.8rem, 3.2vw, 2.4rem);
-            font-weight: 600;
-            letter-spacing: -0.005em;
-            color: var(--white);
-            margin-bottom: 1rem;
-        }
-
-        .section-subtitle {
-            font-size: 1.05rem;
-            color: var(--text-muted);
-            max-width: 600px;
-            margin-bottom: 3.2rem;
-        }
-
-        /* Flow divider between sections */
-        .flowline {
-            position: relative;
-            height: 1px;
-            max-width: 1100px;
-            margin: 0 auto;
-            background: linear-gradient(90deg, transparent, rgba(200, 164, 78, 0.3) 25%, rgba(200, 164, 78, 0.3) 75%, transparent);
-            overflow: visible;
-        }
-
-        .flowline::before {
-            content: '';
-            position: absolute;
-            top: -2.5px;
-            left: 50%;
-            width: 6px;
-            height: 6px;
-            transform: translateX(-50%) rotate(45deg);
-            background: var(--gold);
-            box-shadow: 0 0 10px rgba(200, 164, 78, 0.7);
-        }
-
-        .flowline::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 1px;
-            width: 90px;
-            background: linear-gradient(90deg, transparent, var(--gold-glint), transparent);
-            animation: glint-travel 6s linear infinite;
-            opacity: 0.9;
-        }
-
-        @keyframes glint-travel {
-            0%   { left: -10%; opacity: 0; }
-            12%  { opacity: 0.9; }
-            88%  { opacity: 0.9; }
-            100% { left: 100%; opacity: 0; }
-        }
-
-        /* About */
-        .about { background: linear-gradient(180deg, var(--navy) 0%, var(--navy-3) 100%); }
-
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1.15fr 0.85fr;
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .about-text p {
-            color: var(--text-muted);
-            margin-bottom: 1.5rem;
-            line-height: 1.8;
-        }
-
-        /* Manifest panel */
-        .manifest {
-            background: linear-gradient(180deg, var(--navy-2) 0%, var(--navy-3) 100%);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 2.2rem 2.4rem;
-            box-shadow:
-                inset 0 1px 0 rgba(255, 255, 255, 0.05),
-                0 24px 48px -24px rgba(0, 0, 0, 0.65);
-        }
-
-        .manifest-title {
-            font-family: var(--font-mono);
-            font-size: 0.72rem;
-            letter-spacing: 0.24em;
-            text-transform: uppercase;
-            color: var(--gold);
-            padding-bottom: 1.1rem;
-            margin-bottom: 0.4rem;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .manifest-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            gap: 1.5rem;
-            padding: 0.95rem 0;
-            border-bottom: 1px dashed rgba(200, 164, 78, 0.14);
-        }
-
-        .manifest-row:last-child { border-bottom: none; }
-
-        .manifest-row .k {
-            font-family: var(--font-mono);
-            font-size: 0.78rem;
-            color: var(--text-muted);
-            letter-spacing: 0.04em;
-            white-space: nowrap;
-        }
-
-        .manifest-row .v {
-            font-size: 0.92rem;
-            font-weight: 500;
-            color: var(--text);
-            text-align: right;
-        }
-
-        /* Services */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.8rem;
-        }
-
-        .card {
-            background: linear-gradient(180deg, var(--navy-2) 0%, var(--navy-3) 100%);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            box-shadow:
-                inset 0 1px 0 rgba(255, 255, 255, 0.05),
-                0 20px 40px -26px rgba(0, 0, 0, 0.7);
-            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-4px);
-            border-color: rgba(200, 164, 78, 0.45);
-            box-shadow:
-                inset 0 1px 0 rgba(255, 255, 255, 0.05),
-                0 26px 52px -26px rgba(0, 0, 0, 0.8),
-                0 0 40px -18px rgba(200, 164, 78, 0.4);
-        }
-
-        .service-card { padding: 2.5rem 2rem; }
-
-        .service-icon {
-            width: 46px;
-            height: 46px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 9px;
-            margin-bottom: 1.4rem;
-            color: var(--gold-bright);
-            background: linear-gradient(160deg, rgba(200, 164, 78, 0.16), rgba(200, 164, 78, 0.05));
-            border: 1px solid rgba(200, 164, 78, 0.28);
-            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
-        }
-
-        .service-icon svg { width: 24px; height: 24px; }
-
-        .service-card h3 {
-            font-family: var(--font-display);
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--white);
-            margin-bottom: 0.75rem;
-        }
-
-        .service-card p {
-            font-size: 0.92rem;
-            color: var(--text-muted);
-            line-height: 1.7;
-        }
-
-        /* Categories */
-        .categories { background: linear-gradient(180deg, var(--navy-3) 0%, var(--navy) 100%); }
-
-        .cat-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.4rem;
-        }
-
-        .cat-item {
-            display: flex;
-            align-items: center;
-            gap: 1.1rem;
-            padding: 1.4rem 1.6rem;
-        }
-
-        .cat-item .icon {
-            flex-shrink: 0;
-            color: var(--gold);
-            display: flex;
-            transition: color 0.3s;
-        }
-
-        .cat-item .icon svg { width: 26px; height: 26px; }
-
-        .cat-item:hover .icon { color: var(--gold-glint); }
-
-        .cat-item h4 {
-            font-size: 0.95rem;
-            font-weight: 500;
-            letter-spacing: 0.01em;
-            color: var(--text);
-        }
-
-        /* Why Us */
-        .why-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.8rem;
-        }
-
-        .why-item {
-            display: flex;
-            gap: 1.2rem;
-            padding: 1.7rem 1.8rem;
-        }
-
-        .why-item .check {
-            color: var(--gold-bright);
-            flex-shrink: 0;
-            margin-top: 3px;
-        }
-
-        .why-item .check svg { width: 20px; height: 20px; }
-
-        .why-item h4 {
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--white);
-            margin-bottom: 0.4rem;
-        }
-
-        .why-item p {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            line-height: 1.65;
-        }
-
-        /* Contact */
-        .contact { background: linear-gradient(180deg, var(--navy) 0%, var(--ink) 100%); }
-
-        .contact-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-        }
-
-        .contact-info h3 {
-            font-family: var(--font-display);
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: var(--white);
-            margin-bottom: 1.6rem;
-        }
-
-        .contact-item { margin-bottom: 1.5rem; }
-
-        .contact-item .label {
-            font-family: var(--font-mono);
-            font-size: 0.72rem;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.16em;
-            color: var(--gold);
-            margin-bottom: 0.3rem;
-        }
-
-        .contact-item .value { color: var(--text-muted); font-size: 0.95rem; }
-
-        .contact-item .value a {
-            color: var(--text-muted);
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-
-        .contact-item .value a:hover { color: var(--gold-bright); }
-
-        .contact-panel { padding: 2.5rem; }
-
-        .contact-panel h3 {
-            font-family: var(--font-display);
-            color: var(--white);
-            font-size: 1.15rem;
-            margin-bottom: 1rem;
-        }
-
-        .contact-panel p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            margin-bottom: 1.5rem;
-        }
-
-        /* Footer */
-        footer {
-            padding: 2.8rem 2rem;
-            text-align: center;
-            background: var(--ink);
-        }
-
-        footer p { font-size: 0.85rem; color: var(--text-muted); }
-
-        footer a { color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
-        footer a:hover { color: var(--gold-bright); }
-
-        /* Scroll reveal */
-        .reveal {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.7s cubic-bezier(0.2, 0.6, 0.2, 1), transform 0.7s cubic-bezier(0.2, 0.6, 0.2, 1);
-        }
-
-        .reveal.in { opacity: 1; transform: none; }
-
-        .services-grid > .reveal:nth-child(2), .why-grid > .reveal:nth-child(2) { transition-delay: 0.08s; }
-        .services-grid > .reveal:nth-child(3), .why-grid > .reveal:nth-child(3) { transition-delay: 0.16s; }
-        .why-grid > .reveal:nth-child(4) { transition-delay: 0.24s; }
-        .cat-grid > .reveal:nth-child(3n+2) { transition-delay: 0.07s; }
-        .cat-grid > .reveal:nth-child(3n) { transition-delay: 0.14s; }
-
-        @media (prefers-reduced-motion: reduce) {
-            html { scroll-behavior: auto; }
-            .reveal { opacity: 1; transform: none; transition: none; }
-            .gilt { animation: none; }
-            .flowline::after { animation: none; opacity: 0; }
-            .btn::after { display: none; }
-            .route .pulse { display: none; }
-        }
-
-        /* Responsive */
-        @media (max-width: 900px) {
-            .cat-grid { grid-template-columns: repeat(2, 1fr); }
-            .services-grid { grid-template-columns: 1fr; }
-        }
-
-        @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .nav-toggle { display: block; }
-            .nav-links.active {
-                display: flex;
-                flex-direction: column;
-                position: absolute;
-                top: 72px;
-                left: 0;
-                right: 0;
-                background: rgba(7, 15, 29, 0.98);
-                padding: 2rem;
-                gap: 1.2rem;
-                border-bottom: 1px solid var(--border);
-            }
-            .hero { padding: 7rem 1.5rem 4rem; }
-            .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-            .cat-grid { grid-template-columns: 1fr; }
-            .why-grid { grid-template-columns: 1fr; }
-            .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-            .btn-outline { margin-left: 0.6rem; }
-            .manifest { padding: 1.8rem 1.6rem; }
-            .manifest-row { flex-direction: column; gap: 0.15rem; }
-            .manifest-row .v { text-align: left; }
-        }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#080e18">
+<meta name="color-scheme" content="dark">
+<title>Monaco Flow LLC — Wholesale &amp; Marketplace Distribution</title>
+<meta name="description" content="Monaco Flow LLC buys, holds, and sells manufacturer lines on Amazon and other U.S. marketplaces. MAP-compliant, invoice-authorized, replenished. Registered Florida LLC, Orlando.">
+<link rel="canonical" href="https://themonacoflow.com/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Monaco Flow LLC">
+<meta property="og:title" content="Monaco Flow LLC — Wholesale &amp; Marketplace Distribution">
+<meta property="og:description" content="We buy, hold, and sell manufacturer lines on Amazon and other U.S. marketplaces — under MAP, from authorized invoices.">
+<meta property="og:url" content="https://themonacoflow.com/">
+<meta property="og:image" content="https://themonacoflow.com/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Monaco Flow LLC — Wholesale &amp; Marketplace Distribution">
+<meta name="twitter:description" content="We buy, hold, and sell manufacturer lines on Amazon and other U.S. marketplaces — under MAP, from authorized invoices.">
+<meta name="twitter:image" content="https://themonacoflow.com/og.png">
+
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,600..800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Monaco Flow LLC",
+  "legalName": "Monaco Flow LLC",
+  "url": "https://themonacoflow.com/",
+  "logo": "https://themonacoflow.com/favicon.svg",
+  "description": "Monaco Flow LLC is a Florida wholesale company that buys, holds, and sells manufacturer lines on Amazon and other U.S. marketplaces under MAP.",
+  "foundingDate": "2025",
+  "telephone": "+1-877-460-7547",
+  "email": "wholesale@themonacoflow.com",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "1317 Edgewater Drive, Ste 988",
+    "addressLocality": "Orlando",
+    "addressRegion": "FL",
+    "postalCode": "32804",
+    "addressCountry": "US"
+  },
+  "contactPoint": [{
+    "@type": "ContactPoint",
+    "contactType": "wholesale",
+    "telephone": "+1-877-460-7547",
+    "email": "wholesale@themonacoflow.com",
+    "areaServed": "US",
+    "availableLanguage": "English"
+  }]
+}
+</script>
 </head>
 <body>
 
-    <!-- Navigation -->
-    <nav>
-        <div class="nav-inner">
-            <a href="#" class="logo">THE MONACO <span class="gilt">FLOW</span></a>
-            <button class="nav-toggle" aria-label="Toggle navigation" onclick="document.querySelector('.nav-links').classList.toggle('active')">&#9776;</button>
-            <ul class="nav-links">
-                <li><a href="#about">About</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#categories">Products</a></li>
-                <li><a href="#why">Why Us</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </div>
+<header class="masthead">
+  <div class="wrap masthead__inner">
+    <a class="wordmark" href="/">
+      <span class="wordmark__name">Monaco Flow LLC</span>
+      <span class="wordmark__sub">Wholesale &middot; Marketplace Distribution</span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav class="nav" id="site-nav" aria-label="Main">
+      <a href="how-we-work.html">How we work</a>
+      <a href="categories.html">Categories</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a class="btn" href="vendors.html">Become a vendor</a>
     </nav>
+  </div>
+</header>
 
-    <!-- Hero -->
-    <section class="hero">
-        <div class="hero-inner">
-            <div class="hero-content">
-                <div class="hero-tag">E-Commerce Retail &amp; Distribution</div>
-                <h1>Consumer Goods Distribution for the <span class="gilt">Modern Market</span></h1>
-                <p>Monaco Flow LLC is a Florida-based e-commerce retail and distribution company specializing in consumer products across home, lifestyle, and everyday essentials.</p>
-                <a href="#contact" class="btn">Partner With Us</a>
-                <a href="#about" class="btn btn-outline">Learn More</a>
-            </div>
-            <div class="route" aria-hidden="true">
-                <svg viewBox="0 0 620 64">
-                    <line class="track" x1="10" y1="24" x2="610" y2="24"/>
-                    <circle class="node" cx="10" cy="24" r="5"/>
-                    <circle class="node-core" cx="10" cy="24" r="1.8"/>
-                    <circle class="node" cx="310" cy="24" r="5"/>
-                    <circle class="node-core" cx="310" cy="24" r="1.8"/>
-                    <circle class="node" cx="610" cy="24" r="5"/>
-                    <circle class="node-core" cx="610" cy="24" r="1.8"/>
-                    <circle class="pulse" r="2.6" cy="24">
-                        <animate attributeName="cx" values="10;310;310;610" keyTimes="0;0.45;0.55;1" dur="7s" repeatCount="indefinite"/>
-                    </circle>
-                    <text x="10" y="52" text-anchor="start">SOURCE</text>
-                    <text x="310" y="52" text-anchor="middle">WAREHOUSE</text>
-                    <text x="610" y="52" text-anchor="end">DOORSTEP</text>
-                </svg>
-            </div>
+<main>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow"><span class="dot" aria-hidden="true"></span> Accepting new brand partners</p>
+      <h1 class="display">Marketplace wholesale<span class="qual">for brand partners</span></h1>
+      <p class="lede">
+        Monaco Flow LLC buys, holds, and sells manufacturer lines on Amazon and other U.S.
+        marketplaces. We follow <strong>MAP</strong>, list from <strong>authorized invoices</strong>,
+        and replenish.
+      </p>
+      <div class="btn-row">
+        <a class="btn" href="vendors.html">Become a vendor <span class="arrow" aria-hidden="true">&rarr;</span></a>
+        <a class="btn btn--ghost" href="how-we-work.html">How we work</a>
+      </div>
+
+      <dl class="factrule">
+        <div>
+          <dt>Entity</dt>
+          <dd>Florida LLC, registered 2025</dd>
         </div>
-    </section>
-
-    <!-- About -->
-    <section class="about" id="about">
-        <div class="section-inner">
-            <div class="about-grid">
-                <div class="about-text reveal">
-                    <div class="section-label">About Us</div>
-                    <h2 class="section-title">Built for Scale, Driven by Precision</h2>
-                    <p>Monaco Flow LLC is a registered e-commerce retail and distribution company operating out of Orlando, Florida. We specialize in sourcing, warehousing, and distributing consumer products through major online retail channels.</p>
-                    <p>Our operations are built on efficient logistics, strict MAP compliance, and strong supplier relationships. We work with authorized distributors and wholesale partners to bring quality products to consumers through trusted e-commerce platforms.</p>
-                    <p>We maintain dedicated fulfillment infrastructure and inventory management systems designed for high-volume, multi-channel distribution.</p>
-                </div>
-                <div class="reveal">
-                    <div class="manifest">
-                        <div class="manifest-title">At a Glance</div>
-                        <div class="manifest-row">
-                            <span class="k">Base of operations</span>
-                            <span class="v">Orlando, Florida</span>
-                        </div>
-                        <div class="manifest-row">
-                            <span class="k">Fulfillment</span>
-                            <span class="v">In-house warehousing</span>
-                        </div>
-                        <div class="manifest-row">
-                            <span class="k">Channels</span>
-                            <span class="v">Major e-commerce platforms</span>
-                        </div>
-                        <div class="manifest-row">
-                            <span class="k">Pricing</span>
-                            <span class="v">MAP compliant</span>
-                        </div>
-                        <div class="manifest-row">
-                            <span class="k">Sourcing</span>
-                            <span class="v">Authorized distributors only</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div>
+          <dt>Supply</dt>
+          <dd>Manufacturer or authorized distributor invoices</dd>
         </div>
-    </section>
-
-    <div class="flowline" aria-hidden="true"></div>
-
-    <!-- Services -->
-    <section id="services">
-        <div class="section-inner">
-            <div class="section-label">What We Do</div>
-            <h2 class="section-title">Full-Service E-Commerce Distribution</h2>
-            <p class="section-subtitle">From sourcing to last-mile delivery, we handle the complete product lifecycle.</p>
-            <div class="services-grid">
-                <div class="card service-card reveal">
-                    <div class="service-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4h8v8H8z"/><path d="M3 12h8v8H3z"/><path d="M13 12h8v8h-8z"/><path d="M12 4v3M7 12v3M17 12v3"/></svg>
-                    </div>
-                    <h3>Wholesale Sourcing</h3>
-                    <p>We maintain relationships with authorized distributors and wholesale partners across multiple product categories, ensuring authentic, brand-compliant inventory.</p>
-                </div>
-                <div class="card service-card reveal">
-                    <div class="service-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20V9l9-5 9 5v11"/><path d="M9 20v-7h6v7"/><path d="M3 20h18"/></svg>
-                    </div>
-                    <h3>Inventory &amp; Logistics</h3>
-                    <p>Dedicated warehousing and fulfillment operations with real-time inventory tracking, quality inspection, and rapid turnaround for multi-channel distribution.</p>
-                </div>
-                <div class="card service-card reveal">
-                    <div class="service-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16l1.2 3.6a2.6 2.6 0 0 1-5.1.9 2.6 2.6 0 0 1-5.2 0 2.6 2.6 0 0 1-5.2 0A2.6 2.6 0 0 1 2.8 7.6L4 4z"/><path d="M5 11v9h14v-9"/><path d="M9 20v-5h6v5"/></svg>
-                    </div>
-                    <h3>Multi-Channel Retail</h3>
-                    <p>Product listing management, brand-compliant content, and pricing strategy across major e-commerce platforms with strict MAP adherence.</p>
-                </div>
-            </div>
+        <div>
+          <dt>Fulfillment</dt>
+          <dd>Licensed 3PL partner &mdash; Newark, DE</dd>
         </div>
-    </section>
-
-    <div class="flowline" aria-hidden="true"></div>
-
-    <!-- Categories -->
-    <section class="categories" id="categories">
-        <div class="section-inner">
-            <div class="section-label">Product Categories</div>
-            <h2 class="section-title">Broad Market Coverage</h2>
-            <p class="section-subtitle">We distribute across high-demand consumer product verticals.</p>
-            <div class="cat-grid">
-                <div class="card cat-item reveal">
-                    <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 9.5V20h14V9.5"/><path d="M10 20v-6h4v6"/></svg></div>
-                    <h4>Home &amp; Kitchen</h4>
-                </div>
-                <div class="card cat-item reveal">
-                    <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 6.5v11M17.5 6.5v11M3.5 9v6M20.5 9v6M6.5 12h11"/></svg></div>
-                    <h4>Sports &amp; Outdoors</h4>
-                </div>
-                <div class="card cat-item reveal">
-                    <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></div>
-                    <h4>Office Products</h4>
-                </div>
-                <div class="card cat-item reveal">
-                    <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12a7 7 0 0 1 14 0v2H5v-2z"/><path d="M5 12V7M19 14l2.5-3.5"/><circle cx="8" cy="19" r="1.8"/><circle cx="16" cy="19" r="1.8"/></svg></div>
-                    <h4>Baby &amp; Family</h4>
-                </div>
-                <div class="card cat-item reveal">
-                    <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c-4.5-4.5-4.5-11.5 0-16.5 4.5 5 4.5 12 0 16.5z"/><path d="M12 21V10"/></svg></div>
-                    <h4>Patio &amp; Garden</h4>
-                </div>
-                <div class="card cat-item reveal">
-                    <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="9" r="1.5"/><circle cx="12" cy="7.5" r="1.5"/><circle cx="17" cy="9" r="1.5"/><path d="M12 12c-2.8 0-5 2.2-5 4.4 0 1.4 1.1 2.6 2.5 2.6h5c1.4 0 2.5-1.2 2.5-2.6 0-2.2-2.2-4.4-5-4.4z"/></svg></div>
-                    <h4>Pet Supplies</h4>
-                </div>
-                <div class="card cat-item reveal">
-                    <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4.5 4.5 0 0 0-5.9 5.9L4 17v3h3l4.8-4.8a4.5 4.5 0 0 0 5.9-5.9L15 12l-3-3 2.7-2.7z"/></svg></div>
-                    <h4>Tools &amp; Hardware</h4>
-                </div>
-                <div class="card cat-item reveal">
-                    <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 1 0 0 18c1.4 0 2-.9 1.5-1.9s-.1-2.1 1.4-2.1H17a4 4 0 0 0 4-4c0-5.5-4-10-9-10z"/><circle cx="8" cy="10" r="1"/><circle cx="12" cy="7.5" r="1"/><circle cx="16" cy="10" r="1"/></svg></div>
-                    <h4>Arts &amp; Crafts</h4>
-                </div>
-                <div class="card cat-item reveal">
-                    <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h2l2.5 12h11L21 8H7"/><circle cx="9.5" cy="20" r="1.5"/><circle cx="16.5" cy="20" r="1.5"/></svg></div>
-                    <h4>Grocery &amp; Gourmet Foods</h4>
-                </div>
-            </div>
+        <div>
+          <dt>Pricing</dt>
+          <dd>MAP honored on every listing</dd>
         </div>
-    </section>
+      </dl>
+    </div>
+  </section>
 
-    <div class="flowline" aria-hidden="true"></div>
-
-    <!-- Why Us -->
-    <section id="why">
-        <div class="section-inner">
-            <div class="section-label">Why Partner With Us</div>
-            <h2 class="section-title">Reliable, Compliant, Scalable</h2>
-            <p class="section-subtitle">We operate with the standards that serious brands and distributors expect.</p>
-            <div class="why-grid">
-                <div class="card why-item reveal">
-                    <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.5l2.5 2.5 4.5-5.5"/></svg></div>
-                    <div>
-                        <h4>MAP Policy Compliance</h4>
-                        <p>We strictly adhere to Minimum Advertised Price policies across all channels. Brand pricing integrity is non-negotiable.</p>
-                    </div>
-                </div>
-                <div class="card why-item reveal">
-                    <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.5l2.5 2.5 4.5-5.5"/></svg></div>
-                    <div>
-                        <h4>Authorized Channels Only</h4>
-                        <p>We source exclusively through authorized distributors and wholesale partners. No gray market, no unauthorized sourcing.</p>
-                    </div>
-                </div>
-                <div class="card why-item reveal">
-                    <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.5l2.5 2.5 4.5-5.5"/></svg></div>
-                    <div>
-                        <h4>Dedicated Fulfillment</h4>
-                        <p>Professional warehousing with quality control, proper storage conditions, and efficient logistics infrastructure.</p>
-                    </div>
-                </div>
-                <div class="card why-item reveal">
-                    <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.5l2.5 2.5 4.5-5.5"/></svg></div>
-                    <div>
-                        <h4>Brand-Compliant Content</h4>
-                        <p>Product listings maintain brand guidelines with accurate descriptions, authorized imagery, and proper categorization.</p>
-                    </div>
-                </div>
-            </div>
+  <!-- Signature: the chain of custody, as the document it actually is -->
+  <section class="band band--tight" aria-labelledby="custody-title">
+    <div class="wrap">
+      <article class="doc">
+        <div class="doc__head">
+          <h2 class="doc__title" id="custody-title">Chain of custody</h2>
+          <p class="doc__meta">Purchase order &rarr; live listing</p>
         </div>
-    </section>
+        <div class="doc__body">
+          <ol class="rail">
+            <li class="rail__stop">
+              <span class="rail__n">01</span>
+              <h3>Purchase order</h3>
+              <p>We issue a PO to the manufacturer or one of its authorized distributors and pay on prepayment or approved terms.</p>
+            </li>
+            <li class="rail__stop">
+              <span class="rail__n">02</span>
+              <h3>Inbound</h3>
+              <p>Cartons or pallets are delivered to our fulfillment partner&rsquo;s dock in Newark, Delaware.</p>
+            </li>
+            <li class="rail__stop">
+              <span class="rail__n">03</span>
+              <h3>Inspection</h3>
+              <p>Receipts are counted against the packing list and checked for condition, case pack, and date or lot codes.</p>
+            </li>
+            <li class="rail__stop">
+              <span class="rail__n">04</span>
+              <h3>Prep</h3>
+              <p>Units are prepped to marketplace specification &mdash; polybag, labeling, bundling &mdash; and marked with the marketplace identifier.</p>
+            </li>
+            <li class="rail__stop">
+              <span class="rail__n">05</span>
+              <h3>Forward</h3>
+              <p>A shipment plan is created and cartons are forwarded to the assigned Amazon fulfillment center or another channel.</p>
+            </li>
+            <li class="rail__stop">
+              <span class="rail__n">06</span>
+              <h3>Listed</h3>
+              <p>Product goes live under our seller account at or above MAP, then is replenished against sell-through.</p>
+            </li>
+          </ol>
 
-    <!-- Contact -->
-    <section class="contact" id="contact">
-        <div class="section-inner">
-            <div class="section-label">Get In Touch</div>
-            <h2 class="section-title">Partner Inquiries</h2>
-            <p class="section-subtitle">Interested in working with us? We'd like to hear from you.</p>
-            <div class="contact-grid">
-                <div class="contact-info reveal">
-                    <h3>Contact Information</h3>
-                    <div class="contact-item">
-                        <div>
-                            <div class="label">General Inquiries</div>
-                            <div class="value"><a href="mailto:info@themonacoflow.com">info@themonacoflow.com</a></div>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div>
-                            <div class="label">Wholesale &amp; Purchasing</div>
-                            <div class="value"><a href="mailto:wholesale@themonacoflow.com">wholesale@themonacoflow.com</a></div>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div>
-                            <div class="label">Phone</div>
-                            <div class="value"><a href="tel:+18774607547">(877) 460-7547</a></div>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div>
-                            <div class="label">Location</div>
-                            <div class="value">1317 Edgewater Drive, Ste 988<br>Orlando, FL 32804</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card contact-panel reveal">
-                    <h3>Business Hours</h3>
-                    <p>Monday - Friday: 9:00 AM - 5:00 PM ET</p>
-                    <h3>New Supplier Inquiries</h3>
-                    <p>If you are a distributor or wholesale partner interested in working with us, please reach out via email or phone. We review all inquiries within one business day.</p>
-                    <a href="mailto:wholesale@themonacoflow.com" class="btn">Email Our Team</a>
-                </div>
-            </div>
+          <div class="doc__foot">
+            <p>
+              Every unit we sell traces back to an invoice from your company or a distributor you
+              authorize. Your brand-protection team can ask for that paperwork at any time and get it.
+            </p>
+            <p class="stamp">
+              <b>MAP &mdash; no exceptions</b>
+              <span>Monaco Flow LLC &middot; Orlando, FL</span>
+            </p>
+          </div>
         </div>
-    </section>
+      </article>
+    </div>
+  </section>
 
-    <!-- Footer -->
-    <div class="flowline" aria-hidden="true"></div>
-    <footer>
-        <p>&copy; 2026 Monaco Flow LLC. All rights reserved. &nbsp;|&nbsp; <a href="privacy.html">Privacy Policy</a></p>
-    </footer>
+  <!-- Three commitments -->
+  <section class="band" aria-labelledby="commitments-title">
+    <div class="wrap">
+      <div class="band-head">
+        <span class="mono">How we work</span>
+        <h2 id="commitments-title">Three things a brand can hold us to.</h2>
+        <p>Wholesale goes wrong in predictable ways: unverifiable supply, sloppy handling, and broken pricing. These are the commitments that keep those from happening on your line.</p>
+      </div>
 
-    <script>
-        (function () {
-            var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-            var items = document.querySelectorAll('.reveal');
-            if (reduced || !('IntersectionObserver' in window)) {
-                items.forEach(function (el) { el.classList.add('in'); });
-                return;
-            }
-            var io = new IntersectionObserver(function (entries) {
-                entries.forEach(function (entry) {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('in');
-                        io.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
-            items.forEach(function (el) { io.observe(el); });
-        })();
-    </script>
+      <div class="cols">
+        <div class="commit">
+          <span class="mono">Supply</span>
+          <h3>Authorized supply</h3>
+          <p>We buy direct from manufacturers and authorized distributors. Every unit moves on a real invoice, and we hand that documentation over on request &mdash; no diverted product, no unverifiable lots.</p>
+        </div>
+        <div class="commit">
+          <span class="mono">Fulfillment</span>
+          <h3>Professional fulfillment</h3>
+          <p>Freight goes to a licensed third-party logistics facility in Newark, Delaware, which receives, inspects, preps, and forwards to Amazon. Our Orlando address is the office and mail address, not a dock.</p>
+        </div>
+        <div class="commit">
+          <span class="mono">Discipline</span>
+          <h3>Channel discipline</h3>
+          <p>We list at or above MAP, follow brand guidelines as written, and stay out of categories we are not approved for. No gray market, no MAP breaks, no surprises on your Buy Box.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
+  <!-- Categories -->
+  <section class="band band--raise" aria-labelledby="categories-title">
+    <div class="wrap">
+      <div class="band-head">
+        <span class="mono">Coverage</span>
+        <h2 id="categories-title">Categories we carry.</h2>
+        <p>Everyday consumer goods that replenish. We would rather run a narrow set of lines well than list everything once.</p>
+      </div>
+
+      <div class="cats">
+        <div class="cat">
+          <h3>Home &amp; kitchen</h3>
+          <p>Housewares, storage, cleaning, small kitchen goods.</p>
+        </div>
+        <div class="cat">
+          <h3>Lawn &amp; garden</h3>
+          <p>Outdoor living, growing supplies, seasonal yard goods.</p>
+        </div>
+        <div class="cat">
+          <h3>Pet supplies</h3>
+          <p>Consumables, hard goods, and accessories that reorder.</p>
+        </div>
+        <div class="cat">
+          <h3>Sports &amp; outdoors</h3>
+          <p>Recreation, camp, and outdoor equipment and accessories.</p>
+        </div>
+        <div class="cat">
+          <h3>Office products</h3>
+          <p>Workplace and school supplies with steady reorder cycles.</p>
+        </div>
+        <div class="cat">
+          <h3>Grocery &amp; gourmet</h3>
+          <p>Shelf-stable food and beverage with clear date-code handling.</p>
+        </div>
+      </div>
+
+      <p style="margin-top:1.75rem;"><a class="textlink" href="categories.html">What we look for in a line &rarr;</a></p>
+    </div>
+  </section>
+
+  <!-- Closing CTA -->
+  <section class="band band--tight cta-band">
+    <div class="wrap cta-band__inner">
+      <div>
+        <h2>Have a line you want sold properly?</h2>
+        <p>Send the catalog. We will tell you which SKUs we can move, at what cadence, and under what pricing rules &mdash; usually within one business day.</p>
+      </div>
+      <div class="btn-row">
+        <a class="btn" href="vendors.html">Become a vendor <span class="arrow" aria-hidden="true">&rarr;</span></a>
+        <a class="btn btn--ghost" href="mailto:wholesale@themonacoflow.com?subject=Vendor%20inquiry%20%E2%80%94%20%5BBrand%20name%5D">Email wholesale@</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <span class="wordmark__name">Monaco Flow LLC</span>
+        <p>An authorized e-commerce wholesale partner. We buy, hold, and sell manufacturer lines on U.S. marketplaces.</p>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <a href="about.html">About</a>
+        <a href="how-we-work.html">How we work</a>
+        <a href="categories.html">Categories</a>
+      </div>
+      <div>
+        <h4>Vendors</h4>
+        <a href="vendors.html">Become a vendor</a>
+        <a href="mailto:wholesale@themonacoflow.com">wholesale@themonacoflow.com</a>
+        <a href="tel:+18774607547">(877) 460-7547</a>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+
+    <div class="footer__addresses addresses">
+      <div>
+        <h4>Headquarters &amp; mail</h4>
+        <address>
+          Monaco Flow LLC<br>
+          1317 Edgewater Drive, Ste 988<br>
+          Orlando, FL 32804
+        </address>
+      </div>
+      <div>
+        <h4>Fulfillment &mdash; partner facility</h4>
+        <address>
+          Third-party logistics facility<br>
+          Newark, Delaware<br>
+          Inbound instructions issued on PO confirmation
+        </address>
+      </div>
+    </div>
+
+    <div class="footer__base">
+      <p>&copy; 2026 Monaco Flow LLC</p>
+      <p>Mon&ndash;Fri &middot; 9&ndash;5 ET &middot; <a href="tel:+18774607547">(877) 460-7547</a></p>
+    </div>
+  </div>
+</footer>
+
+<script src="site.js"></script>
 </body>
 </html>
